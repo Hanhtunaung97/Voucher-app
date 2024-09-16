@@ -8,10 +8,12 @@ import {
   VoucherDetailPage,
   VoucherPage,
 } from "./pages";
+import { HeaderComponent } from "./components";
 
 const App = () => {
   return (
-    <main>
+    <main className="center">
+      <HeaderComponent />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/products" element={<ProductsPage />} />
