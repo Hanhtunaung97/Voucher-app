@@ -10,16 +10,16 @@ const BreadCrumbComponent = ({ currentPageTitle, links }) => {
           <li className="inline-flex items-center">
             <Link
               to="/"
-              className="inline-flex gap-2  items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white"
+              className="inline-flex gap-2  items-center text-sm font-medium text-slate-600 hover:text-blue-600 dark:text-slate-400 dark:hover:text-white"
             >
-              <FaHome />
+              <FaHome className="text-slate-700 w-4 h-4" />
               Home
             </Link>
           </li>
           <li aria-current="page">
             <div className="flex items-center">
-              <PiGreaterThan />
-              <span className="ms-1 text-sm font-bold text-gray-500 md:ms-2 dark:text-gray-400">
+              <PiGreaterThan className="text-slate-400  w-4 h-4" />
+              <span className="ms-1 text-sm font-semibold text-slate-800 md:ms-2 dark:text-slate-400">
                 {currentPageTitle}
               </span>
             </div>

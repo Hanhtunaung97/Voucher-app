@@ -1,10 +1,9 @@
 import React from "react";
 import emptyList from "../assets/empty.svg";
-import { FaSearch } from "react-icons/fa";
-import { FaPlus } from "react-icons/fa6";
+import { FaSearch,FaFileInvoiceDollar } from "react-icons/fa";
 import { CiEdit } from "react-icons/ci";
 import { CiTrash } from "react-icons/ci";
-const ProductListComponent = () => {
+const VoucherListComponent = () => {
   return (
     <div>
       {/* Search and Add */}
@@ -16,33 +15,33 @@ const ProductListComponent = () => {
           <input
             type="search"
             className="bg-slate-50 border border-slate-300 text-slate-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-slate-700 dark:border-slate-600 dark:placeholder-slate-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="Search Product"
+            placeholder="Search Voucher"
           />
         </div>
         <button
           type="submit"
           className="text-white  bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 flex items-center gap-2"
         >
-          Add New Product
-          <FaPlus className="w-4 h-4 text-white " />
+          Create Sale Voucher
+          <FaFileInvoiceDollar className="w-4 h-4 text-white " />
         </button>
       </div>
-      {/* Product Table */}
+      {/* Voucher Table */}
       <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
         <table className="w-full text-sm text-left rtl:text-right text-slate-500 dark:text-slate-400">
           <thead className="text-xs text-slate-700 uppercase bg-slate-50 dark:bg-slate-700 dark:text-slate-400">
             <tr>
               <th scope="col" className="px-6 py-3">
-                #
+               Voucher ID
               </th>
               <th scope="col" className="px-6 py-3">
-                PRODUCT NAME
+                CUSTOMER NAME
               </th>
               <th scope="col" className="px-6 py-3 text-end">
-                PRICE(USD)
+                EMAIL
               </th>
               <th scope="col" className="px-6 py-3 text-end">
-                CREATED_AT
+                DATE
               </th>
               <th scope="col" className="px-6 py-3 text-end">
                 ACTION
@@ -51,14 +50,14 @@ const ProductListComponent = () => {
           </thead>
           <tbody>
             <tr className="odd:bg-white odd:dark:bg-slate-900 even:bg-slate-50 even:dark:bg-slate-800 border-b dark:border-slate-700">
-              <td className="px-6 py-4">1</td>
+              <td className="px-6 py-4">1674</td>
               <th
                 scope="row"
                 className="px-6 py-4 font-medium text-slate-900 whitespace-nowrap dark:text-white"
               >
-                Apple MacBook Pro 17"
+                HAN HAN
               </th>
-              <td className="px-6 py-4 text-end">45.99</td>
+              <td className="px-6 py-4 text-end">Han@gmail.com</td>
               <td className="px-6 py-4 text-end">
                 <div className="flex flex-col space-y-0 text-xs">
                   <p>2021-01-01</p>
@@ -103,4 +102,4 @@ const ProductListComponent = () => {
   );
 };
 
-export default ProductListComponent;
+export default VoucherListComponent;
