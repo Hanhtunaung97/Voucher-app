@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { dotSpinner } from "ldrs";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
 const AddNewProductComponent = () => {
+  const nav = useNavigate();
   const {
     register,
     handleSubmit,
@@ -14,19 +15,27 @@ const AddNewProductComponent = () => {
   const [isSending, setIsSending] = useState(false);
   dotSpinner.register();
   const handleCreateForm = async (data) => {
-    // console.log(data);
+    console.log(data);
     data.created_at = new Date().toISOString();
+    const createdProduct = {
+      product_name: data.product_name,
+      price: data.price,
+      created_at: data.created_at,
+    };
     setIsSending(true);
     await fetch(import.meta.env.VITE_API_URL + "/products", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(createdProduct),
     });
     setIsSending(false);
     reset();
     toast.success(`${data.product_name} product created successfully`);
+    if (data.to_products) {
+      nav("/products");
+    }
   };
   return (
     <div className="flex justify-center items-center">
@@ -55,13 +64,14 @@ const AddNewProductComponent = () => {
                 minLength: 3,
                 maxLength: 20,
               })}
+              disabled={isSending}
               type="text"
               id="text"
               className={`${
                 errors.product_name
                   ? "focus:border-red-500 focus:ring-red-500 border-red-500 "
                   : "focus:ring-green-300 focus:border-green-300 border-slate-300  "
-              }bg-slate-50 border  text-slate-900 text-sm rounded-lg  block w-full p-2.5 dark:bg-slate-700 dark:border-slate-600 dark:placeholder-slate-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}
+              } disabled:opacity-75 bg-slate-50 border  text-slate-900 text-sm rounded-lg  block w-full p-2.5 dark:bg-slate-700 dark:border-slate-600 dark:placeholder-slate-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}
               placeholder="I Phone 16 pro max"
             />
             {errors.product_name?.type === "required" && (
@@ -93,13 +103,14 @@ const AddNewProductComponent = () => {
                 min: 1,
                 max: 10000,
               })}
+              disabled={isSending}
               type="number"
               id="price"
               className={`${
                 errors.price
                   ? "focus:border-red-500 focus:ring-red-500 border-red-500 "
                   : "focus:ring-green-300 focus:border-green-300 border-slate-300  "
-              }bg-slate-50 border border-slate-300 text-slate-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-slate-700 dark:border-slate-600 dark:placeholder-slate-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}
+              } disabled:opacity-75 bg-slate-50 border border-slate-300 text-slate-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-slate-700 dark:border-slate-600 dark:placeholder-slate-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}
               placeholder="995.99"
             />
             {errors.price?.type === "required" && (
@@ -121,18 +132,47 @@ const AddNewProductComponent = () => {
           <div className="flex items-start mb-5">
             <div className="flex items-center h-5">
               <input
+                {...register("correct_check", { required: true })}
+                disabled={isSending}
                 id="correct_check"
                 type="checkbox"
                 defaultValue
-                className="w-4 h-4 border border-slate-300 rounded bg-slate-50 focus:ring-3 focus:ring-blue-300 dark:bg-slate-700 dark:border-slate-600 dark:focus:ring-blue-600 dark:ring-offset-slate-800 dark:focus:ring-offset-slate-800"
-                required
+                className={`${
+                  errors.correct_check &&
+                  " border border-red-300 focus:ring-3 focus:ring-red-500 bg-white"
+                } disabled:opacity-75 w-4 h-4 border border-slate-300 rounded bg-slate-50 focus:ring-3 focus:ring-blue-300 dark:bg-slate-700 dark:border-slate-600 dark:focus:ring-blue-600 dark:ring-offset-slate-800 dark:focus:ring-offset-slate-800`}
               />
+              {errors.correct_check?.type === "required" && (
+                <p className="text-red-500 ms-2 text-sm">
+                  Correct check is required !
+                </p>
+              )}
             </div>
             <label
               htmlFor="correct_check"
-              className="ms-2 text-sm font-medium text-slate-500 dark:text-slate-300"
+              className={`${
+                errors.correct_check && "hidden"
+              } ms-2 text-sm font-medium text-slate-500 dark:text-slate-300`}
             >
-              Every Field is Correct?
+              Every Field is Correct.
+            </label>
+          </div>
+          <div className="flex items-start mb-5">
+            <div className="flex items-center h-5">
+              <input
+                {...register("to_products")}
+                disabled={isSending}
+                id="to_products"
+                type="checkbox"
+                defaultValue
+                className={` disabled:opacity-75 w-4 h-4 border border-slate-300 rounded bg-slate-50 focus:ring-3 focus:ring-blue-300 dark:bg-slate-700 dark:border-slate-600 dark:focus:ring-blue-600 dark:ring-offset-slate-800 dark:focus:ring-offset-slate-800`}
+              />
+            </div>
+            <label
+              htmlFor="to_products"
+              className={` ms-2 text-sm font-medium text-slate-500 dark:text-slate-300`}
+            >
+              Back to products page after created.
             </label>
           </div>
           <div className="flex space-x-3">

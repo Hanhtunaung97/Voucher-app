@@ -50,7 +50,7 @@ const ProductRowComponent = ({
         });
         setIsDelete(false);
         mutate(import.meta.env.VITE_API_URL + "/products");
-        toast.success("Product deleted successfully");
+        toast.success(`${product_name} product deleted successfully`);
       },
     });
     // console.log(id);
