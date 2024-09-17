@@ -7,3 +7,4 @@ export { default as VoucherListComponent } from "./VoucherListComponent";
 export { default as SkeletonLoaderComponent } from "./SkeletonLoaderComponent";
 export { default as ProductRowComponent } from "./ProductRowComponent";
 export { default as EmptyListComponent } from "./EmptyListComponent";
+export { default as AddNewProductComponent } from "./AddNewProductComponent";

@@ -5,7 +5,7 @@ import useSWR from "swr";
 import SkeletonLoaderComponent from "./SkeletonLoaderComponent";
 import EmptyListComponent from "./EmptyListComponent";
 import ProductRowComponent from "./ProductRowComponent";
-
+import { Link } from "react-router-dom";
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 const ProductListComponent = () => {
@@ -27,13 +27,13 @@ const ProductListComponent = () => {
             placeholder="Search Product"
           />
         </div>
-        <button
-          type="submit"
+        <Link
+          to={"/products/create"}
           className="text-white  bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 flex items-center gap-2"
         >
           Add New Product
           <FaPlus className="w-4 h-4 text-white " />
-        </button>
+        </Link>
       </div>
       {/* Product Table */}
       <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -63,7 +63,7 @@ const ProductListComponent = () => {
             ) : (
               <>
                 {data.length === 0 ? (
-                 <EmptyListComponent/>
+                  <EmptyListComponent />
                 ) : (
                   data.map((el) => (
                     <ProductRowComponent key={el.id} product={el} />

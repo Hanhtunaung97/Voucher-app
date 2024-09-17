@@ -1,12 +1,16 @@
 import React from "react";
-import { BreadCrumbComponent, ContainerComponent, ProductListComponent } from "../components";
+import {
+  BreadCrumbComponent,
+  ContainerComponent,
+  ProductListComponent,
+} from "../components";
 
 const ProductsPage = () => {
   return (
     <section>
       <ContainerComponent>
         <BreadCrumbComponent currentPageTitle="Products" />
-        <ProductListComponent/>
+        <ProductListComponent />
       </ContainerComponent>
     </section>
   );

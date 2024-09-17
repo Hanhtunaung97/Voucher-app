@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import {
   HomePage,
   NotFoundPage,
+  ProductCreatePage,
   ProductsPage,
   SalePage,
   VoucherDetailPage,
@@ -18,6 +19,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/products" element={<ProductsPage />} />
+        <Route path="/products/create" element={<ProductCreatePage/>}/>
         <Route path="/sale" element={<SalePage />} />
         <Route path="/vouchers" element={<VoucherPage />} />
         <Route path="/vouchers/:id" element={<VoucherDetailPage />} />

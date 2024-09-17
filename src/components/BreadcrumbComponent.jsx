@@ -16,6 +16,20 @@ const BreadCrumbComponent = ({ currentPageTitle, links }) => {
               Home
             </Link>
           </li>
+          {links &&
+            links.map((link, index) => (
+              <li key={index} aria-current="page">
+                <div className="flex items-center">
+                  <PiGreaterThan className="text-slate-400  w-4 h-4" />
+                  <Link
+                    to={link.path}
+                    className="inline-flex gap-2  items-center text-sm font-medium text-slate-600 hover:text-blue-600 dark:text-slate-400 dark:hover:text-white"
+                  >
+                    {link.name}
+                  </Link>
+                </div>
+              </li>
+            ))}
           <li aria-current="page">
             <div className="flex items-center">
               <PiGreaterThan className="text-slate-400  w-4 h-4" />
