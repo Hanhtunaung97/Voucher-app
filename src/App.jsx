@@ -9,6 +9,7 @@ import {
   VoucherPage,
 } from "./pages";
 import { HeaderComponent } from "./components";
+import { Toaster } from "react-hot-toast";
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
         <Route path="/vouchers/:id" element={<VoucherDetailPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
+      <Toaster toastOptions={{ duration: 3000, position: "top-right" }} />
     </main>
   );
 };
