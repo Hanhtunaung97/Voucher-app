@@ -4,6 +4,7 @@ import {
   HomePage,
   NotFoundPage,
   ProductCreatePage,
+  ProductEditPage,
   ProductsPage,
   SalePage,
   VoucherDetailPage,
@@ -20,12 +21,13 @@ const App = () => {
         <Route path="/" element={<HomePage />} />
         <Route path="/products" element={<ProductsPage />} />
         <Route path="/products/create" element={<ProductCreatePage/>}/>
+        <Route path="/products/edit/:id" element={<ProductEditPage/>}/>
         <Route path="/sale" element={<SalePage />} />
         <Route path="/vouchers" element={<VoucherPage />} />
         <Route path="/vouchers/:id" element={<VoucherDetailPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
-      <Toaster toastOptions={{ duration: 3000, position: "top-right" }} />
+      <Toaster toastOptions={{ duration: 2000, position: "top-right" }} />
     </main>
   );
 };

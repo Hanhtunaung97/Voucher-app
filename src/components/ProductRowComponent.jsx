@@ -5,6 +5,7 @@ import { useSWRConfig } from "swr";
 import { newtonsCradle } from "ldrs";
 import toast from "react-hot-toast";
 import SweetAlert2 from "react-sweetalert2";
+import { Link } from "react-router-dom";
 const ProductRowComponent = ({
   product: { id, product_name, price, created_at },
 }) => {
@@ -75,12 +76,12 @@ const ProductRowComponent = ({
         <td className="px-6 py-4">
           <div className="flex space-x-2 justify-end">
             <div className="inline-flex rounded-md shadow-sm" role="group">
-              <button
-                type="button"
+              <Link
+                to={`/products/edit/${id}`}
                 className="group duration-200 size-10 flex justify-center items-center text-sm font-medium text-blue-500 bg-white border border-slate-200 rounded-s-lg hover:bg-blue-100 hover:text-blue-700 focus:z-10 focus:border-0 focus:ring-2 focus:ring-blue-200 focus:text-blue-700 dark:bg-slate-800 dark:border-slate-700 dark:text-white dark:hover:text-white dark:hover:bg-slate-700 dark:focus:ring-blue-500 dark:focus:text-white"
               >
                 <CiEdit className="w-4 h-4 group-hover:w-5 group-hover:h-5" />
-              </button>
+              </Link>
               <button
                 onClick={handleDeleteBtn}
                 type="button"
@@ -89,7 +90,7 @@ const ProductRowComponent = ({
                 {isDelete ? (
                   <>
                     <l-newtons-cradle
-                      size="38"
+                      size="36"
                       speed="1.4"
                       color="red"
                     ></l-newtons-cradle>

@@ -8,3 +8,5 @@ export { default as SkeletonLoaderComponent } from "./SkeletonLoaderComponent";
 export { default as ProductRowComponent } from "./ProductRowComponent";
 export { default as EmptyListComponent } from "./EmptyListComponent";
 export { default as AddNewProductComponent } from "./AddNewProductComponent";
+export { default as UpdateProductComponent } from "./UpdateProductComponent";
+export { default as SkeletonFormComponent } from "./SkeletonFormComponent";
