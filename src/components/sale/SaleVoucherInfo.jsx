@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { HiOutlineCurrencyDollar } from "react-icons/hi2";
 import { useForm } from "react-hook-form";
 import { dotSpinner } from "ldrs";
 import toast from "react-hot-toast";
@@ -6,8 +7,10 @@ import generateInvoiceId from "../../utils/generateInvoiceId";
 import SaleForm from "./SaleForm";
 import SaleTable from "./SaleTable";
 import useSaleRecordStore from "../../store/useSaleRecordStore";
+import { useNavigate } from "react-router-dom";
 dotSpinner.register();
 const SaleVoucherInfo = () => {
+  const nav=useNavigate();
   const [isSending, setIsSending] = useState(false);
   const saleDate = new Date().toISOString().slice(0, 10);
   const {
@@ -37,8 +40,21 @@ const SaleVoucherInfo = () => {
     toast.success(`${data.customer_name} voucher is created successfully`);
     console.log(currentVoucher);
   };
+  const handleNavBtn=() => {
+    nav("/vouchers");
+  }
   return (
     <div className="flex flex-col justify-center gap-10">
+      <div className="flex justify-end items-center">
+      <button
+        onClick={handleNavBtn}
+          type="button"
+          className="text-white  bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 flex items-center gap-2"
+        >
+         Voucher Lists
+          <HiOutlineCurrencyDollar className="w-5 h-5 text-white "/>
+        </button>
+      </div>
       <form onSubmit={handleSubmit(handleSaleVoucherForm)} id="saleVoucherForm">
         <div className=" grid grid-cols-1 md:grid-cols-4 gap-3">
           <div className=" col-span-1">
