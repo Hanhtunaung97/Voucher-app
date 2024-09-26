@@ -19,3 +19,5 @@ export { default as VoucherRowComponent } from "./vouchers/VoucherRowComponent";
 export { default as VoucherTableComponent } from "./vouchers/VoucherTableComponent";
 export { default as VoucherGroupComponent } from "./vouchers/VoucherGroupComponent";
 export {default as ShowDateComponent} from "./utilities/ShowDateComponent";
+export {default as ProductGroupComponent} from "./products/ProductGroupComponent";
+export {default as ProductTableComponent} from "./products/ProductTableComponent"

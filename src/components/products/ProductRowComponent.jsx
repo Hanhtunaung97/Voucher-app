@@ -47,7 +47,7 @@ const ProductRowComponent = ({
   };
   return (
     <>
-      <tr className="odd:bg-white odd:dark:bg-slate-900 even:bg-slate-50 even:dark:bg-slate-800 border-b dark:border-slate-700 hover:scale-105 duration-200 overflow-x-hidden">
+      <tr className="odd:bg-white odd:dark:bg-slate-900 even:bg-blue-50 even:dark:bg-slate-800  dark:border-slate-700 hover:scale-105 duration-200 overflow-x-hidden">
         <td className="px-6 py-4">{id}</td>
         <th
           scope="row"

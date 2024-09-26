@@ -1,18 +1,9 @@
 import React from "react";
 import { FaSearch } from "react-icons/fa";
 import { FaPlus } from "react-icons/fa6";
-import useSWR from "swr";
-import SkeletonLoaderComponent from "../utilities/SkeletonLoaderComponent";
-import EmptyListComponent from "../utilities/EmptyListComponent";
-import ProductRowComponent from "./ProductRowComponent";
 import { Link } from "react-router-dom";
-
-const fetcher = (url) => fetch(url).then((res) => res.json());
+import ProductTableComponent from "./ProductTableComponent";
 const ProductListComponent = () => {
-  const { data, error, isLoading } = useSWR(
-    import.meta.env.VITE_API_URL + "/products",
-    fetcher
-  );
   return (
     <div className="w-full pb-5">
       {/* Search and Add */}
@@ -36,44 +27,7 @@ const ProductListComponent = () => {
         </Link>
       </div>
       {/* Product Table */}
-      <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-        <table className="w-full text-sm text-left rtl:text-right text-slate-500 dark:text-slate-400 overflow-hidden">
-          <thead className="text-xs text-slate-700 uppercase bg-blue-50 dark:bg-slate-700 dark:text-slate-400">
-            <tr>
-              <th scope="col" className="px-6 py-3">
-                #
-              </th>
-              <th scope="col" className="px-6 py-3">
-                PRODUCT NAME
-              </th>
-              <th scope="col" className="px-6 py-3 text-end">
-                PRICE(USD)
-              </th>
-              <th scope="col" className="px-6 py-3 text-end">
-                CREATED_AT
-              </th>
-              <th scope="col" className="px-6 py-3 text-end">
-                ACTION
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {isLoading ? (
-              <SkeletonLoaderComponent />
-            ) : (
-              <>
-                {data.length === 0 ? (
-                  <EmptyListComponent />
-                ) : (
-                  data.map((el) => (
-                    <ProductRowComponent key={el.id} product={el} />
-                  ))
-                )}
-              </>
-            )}
-          </tbody>
-        </table>
-      </div>
+      <ProductTableComponent/>
     </div>
   );
 };
