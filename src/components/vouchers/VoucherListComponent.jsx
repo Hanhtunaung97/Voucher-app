@@ -1,9 +1,8 @@
 import React from "react";
-import emptyList from "../assets/empty.svg";
-import { FaSearch,FaFileInvoiceDollar } from "react-icons/fa";
+import { FaSearch, FaFileInvoiceDollar } from "react-icons/fa";
 import { CiEdit } from "react-icons/ci";
 import { CiTrash } from "react-icons/ci";
-import EmptyListComponent from "./EmptyListComponent";
+import EmptyListComponent from "../utilities/EmptyListComponent";
 const VoucherListComponent = () => {
   return (
     <div>
@@ -33,7 +32,7 @@ const VoucherListComponent = () => {
           <thead className="text-xs text-slate-700 uppercase bg-slate-50 dark:bg-slate-700 dark:text-slate-400">
             <tr>
               <th scope="col" className="px-6 py-3">
-               Voucher ID
+                Voucher ID
               </th>
               <th scope="col" className="px-6 py-3">
                 CUSTOMER NAME
@@ -88,7 +87,7 @@ const VoucherListComponent = () => {
               </td>
             </tr>
             {/* empty list */}
-           <EmptyListComponent/>
+            <EmptyListComponent />
           </tbody>
         </table>
       </div>

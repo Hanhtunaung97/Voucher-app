@@ -1,8 +1,17 @@
 import React from 'react'
-
+import {
+  BreadCrumbComponent,
+  ContainerComponent,
+  SaleVoucherInfo,
+} from "../components"
 const SalePage = () => {
   return (
-    <div>SalePage</div>
+    <section>
+    <ContainerComponent>
+      <BreadCrumbComponent currentPageTitle="Sale" />
+      <SaleVoucherInfo/>     
+    </ContainerComponent>
+  </section>
   )
 }
 

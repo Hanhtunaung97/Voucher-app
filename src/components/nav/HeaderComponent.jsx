@@ -1,5 +1,5 @@
 import React from "react";
-import ContainerComponent from "./ContainerComponent";
+import ContainerComponent from "../utilities/ContainerComponent";
 
 const HeaderComponent = () => {
   return (
@@ -7,9 +7,11 @@ const HeaderComponent = () => {
       <ContainerComponent>
         <div className="flex flex-col gap-1 py-5">
           <h1 className="font-heading font-bold text-lg md:text-2xl text-slate-800">
-             Voucher Management
+            Voucher Management
           </h1>
-          <h5 className="font-medium text-slate-500 text-sm md:text-base">MMS Software</h5>
+          <h5 className="font-medium text-slate-500 text-sm md:text-base">
+            MMS Software
+          </h5>
         </div>
       </ContainerComponent>
     </header>

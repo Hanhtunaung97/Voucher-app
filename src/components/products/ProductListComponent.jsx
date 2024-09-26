@@ -3,7 +3,7 @@ import { FaSearch } from "react-icons/fa";
 import { FaPlus } from "react-icons/fa6";
 import useSWR from "swr";
 import SkeletonLoaderComponent from "./SkeletonLoaderComponent";
-import EmptyListComponent from "./EmptyListComponent";
+import EmptyListComponent from "../utilities/EmptyListComponent";
 import ProductRowComponent from "./ProductRowComponent";
 import { Link } from "react-router-dom";
 

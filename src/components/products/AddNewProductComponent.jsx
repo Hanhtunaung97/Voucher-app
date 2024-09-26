@@ -81,12 +81,12 @@ const AddNewProductComponent = () => {
             )}
             {errors.product_name?.type === "min" && (
               <p className="text-red-500 mt-2 text-sm">
-                Product price must be at least 1 dollar !
+                Product Name must be at least 3 letters !
               </p>
             )}
             {errors.product_name?.type === "max" && (
               <p className="text-red-500 mt-2 text-sm">
-                Product price must not be at more than 10000 dollars !
+                Product Name must not be at more than 20 letters !
               </p>
             )}
           </div>
@@ -120,12 +120,12 @@ const AddNewProductComponent = () => {
             )}
             {errors.price?.type === "minLength" && (
               <p className="text-red-500 mt-2 text-sm">
-                Product Name must be at least 3 !
+                Product price must be at least 1 dollar !
               </p>
             )}
             {errors.price?.type === "maxLength" && (
               <p className="text-red-500 mt-2 text-sm">
-                Product Name must not be at more than 20 !
+                Product price must not be at more than 10000 dollars !
               </p>
             )}
           </div>

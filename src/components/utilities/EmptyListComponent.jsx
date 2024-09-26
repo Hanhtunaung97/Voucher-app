@@ -1,7 +1,7 @@
 import React from "react";
 import Lottie from "lottie-react";
 // import emptyList from "../assets/empty.svg";
-import emptyList from "../lottie/lottieEmpty.json"
+import emptyList from "../../lottie/lottieEmpty.json";
 const EmptyListComponent = () => {
   return (
     <>
@@ -9,7 +9,7 @@ const EmptyListComponent = () => {
         <td colSpan={5} className="px-6 py-6">
           <div className="flex flex-col gap-3 justify-center items-center">
             {/* <img src={emptyList} alt={"emptyList"} className="w-52" /> */}
-            <Lottie animationData={emptyList} loop={true} className="w-52"/>
+            <Lottie animationData={emptyList} loop={true} className="w-52" />
             <p className="text-blue-500">There is no lists.</p>
           </div>
         </td>
