@@ -63,14 +63,39 @@
   ],
   "vouchers": [
     {
-      "voucher_id": "INV-20240926-191608-91",
+      "voucher_id": "INV-20240926-210030-1794",
       "customer_name": "Han htun aung",
       "customer_email": "littlehanhtunaung97@gmail.com",
-      "sale_date": "2024-09-26",
+      "sale_date": "2024-09-24",
       "correct_check": "true",
       "saleRecords": [
         {
-          "id": 1727349378562,
+          "id": 1727355645394,
+          "product": {
+            "id": 6,
+            "product_name": "iPhone 13",
+            "price": 799.99,
+            "created_at": "2022-08-25T09:45:00.000Z"
+          },
+          "quantity": "2",
+          "cost": 1599.98,
+          "created_at": "2024-09-26T13:00:45.394Z"
+        }
+      ],
+      "total": 1599.98,
+      "tax": 191.9976,
+      "netTotal": 1791.9776,
+      "id": 1
+    },
+    {
+      "voucher_id": "INV-20240926-210807-188",
+      "customer_name": "theintnandarzaw",
+      "customer_email": "theint123@gmail.com",
+      "sale_date": "2024-09-27",
+      "correct_check": "true",
+      "saleRecords": [
+        {
+          "id": 1727356116512,
           "product": {
             "id": 6,
             "product_name": "iPhone 13",
@@ -79,124 +104,13 @@
           },
           "quantity": "1",
           "cost": 799.99,
-          "created_at": "2024-09-26T11:16:18.562Z"
+          "created_at": "2024-09-26T13:08:36.512Z"
         }
       ],
       "total": 799.99,
       "tax": 95.9988,
       "netTotal": 895.9888,
-      "id": 1
-    },
-    {
-      "voucher_id": "INV-20240926-191626-1990",
-      "customer_name": "Theint Nandar Zaw",
-      "customer_email": "Theint12@gmail.com",
-      "sale_date": "2024-09-26",
-      "correct_check": "true",
-      "saleRecords": [
-        {
-          "id": 1727349378562,
-          "product": {
-            "id": 6,
-            "product_name": "iPhone 13",
-            "price": 799.99,
-            "created_at": "2022-08-25T09:45:00.000Z"
-          },
-          "quantity": "1",
-          "cost": 799.99,
-          "created_at": "2024-09-26T11:16:18.562Z"
-        },
-        {
-          "id": 1727349417899,
-          "product": {
-            "product_name": "I phone 16 pro max",
-            "price": "1400",
-            "created_at": "2024-09-17T18:09:56.207Z",
-            "id": 12
-          },
-          "quantity": "1",
-          "cost": 1400,
-          "created_at": "2024-09-26T11:16:57.899Z"
-        }
-      ],
-      "total": 2199.99,
-      "tax": 263.99879999999996,
-      "netTotal": 2463.9887999999996,
       "id": 2
-    },
-    {
-      "voucher_id": "INV-20240926-192158-11",
-      "customer_name": "Han",
-      "customer_email": "Th123@gmail.com",
-      "sale_date": "2024-09-26",
-      "correct_check": "true",
-      "saleRecords": [
-        {
-          "id": 1727349737742,
-          "product": {
-            "id": 8,
-            "product_name": "MacBook Air",
-            "price": 1099.99,
-            "created_at": "2022-11-05T17:30:00.000Z"
-          },
-          "quantity": "1",
-          "cost": 1099.99,
-          "created_at": "2024-09-26T11:22:17.742Z"
-        },
-        {
-          "id": 1727349746507,
-          "product": {
-            "id": 10,
-            "product_name": "AirPods Pro",
-            "price": 249.99,
-            "created_at": "2023-01-03T19:45:00.000Z"
-          },
-          "quantity": "2",
-          "cost": 499.98,
-          "created_at": "2024-09-26T11:22:26.507Z"
-        }
-      ],
-      "total": 1599.97,
-      "tax": 191.9964,
-      "netTotal": 1791.9664,
-      "id": 3
-    },
-    {
-      "voucher_id": "INV-20240926-192536-6444",
-      "customer_name": "Leon",
-      "customer_email": "leon123@gmail.com",
-      "sale_date": "2024-09-24",
-      "correct_check": "true",
-      "saleRecords": [
-        {
-          "id": 1727349925296,
-          "product": {
-            "id": 5,
-            "product_name": "iPhone 12",
-            "price": 699.99,
-            "created_at": "2022-06-18T12:00:00.000Z"
-          },
-          "quantity": "1",
-          "cost": 699.99,
-          "created_at": "2024-09-26T11:25:25.296Z"
-        },
-        {
-          "id": 1727349931251,
-          "product": {
-            "id": 10,
-            "product_name": "AirPods Pro",
-            "price": 249.99,
-            "created_at": "2023-01-03T19:45:00.000Z"
-          },
-          "quantity": "2",
-          "cost": 499.98,
-          "created_at": "2024-09-26T11:25:31.251Z"
-        }
-      ],
-      "total": 1199.97,
-      "tax": 143.9964,
-      "netTotal": 1343.9664,
-      "id": 4
     }
   ]
 }

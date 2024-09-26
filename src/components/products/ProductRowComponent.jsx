@@ -6,25 +6,14 @@ import { newtonsCradle } from "ldrs";
 import toast from "react-hot-toast";
 import SweetAlert2 from "react-sweetalert2";
 import { Link } from "react-router-dom";
+import ShowDateComponent from "../utilities/ShowDateComponent";
+newtonsCradle.register();
 const ProductRowComponent = ({
   product: { id, product_name, price, created_at },
 }) => {
   const [isDelete, setIsDelete] = useState(false);
   const [swalProps, setSwalProps] = useState({});
   const { mutate } = useSWRConfig();
-  newtonsCradle.register();
-  const data = new Date(created_at);
-  const createdDate = data.toLocaleDateString("en-GB", {
-    day: "numeric",
-    month: "short",
-    year: "numeric",
-  });
-  const createdTime = data.toLocaleTimeString("en-GB", {
-    hour: "numeric",
-    minute: "numeric",
-    // second: "numeric",
-    hour12: false,
-  });
   const handleDeleteBtn = async () => {
     setSwalProps({
       show: true,
@@ -69,8 +58,7 @@ const ProductRowComponent = ({
         <td className="px-6 py-4 text-end">{price}</td>
         <td className="px-6 py-4 text-end">
           <div className="flex flex-col space-y-0 text-xs">
-            <p>{createdDate}</p>
-            <p>{createdTime}</p>
+            <ShowDateComponent timeStamp={created_at} />
           </div>
         </td>
         <td className="px-6 py-4">
