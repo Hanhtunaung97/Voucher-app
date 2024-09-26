@@ -3,6 +3,7 @@ import emptyList from "../assets/empty.svg";
 import { FaSearch,FaFileInvoiceDollar } from "react-icons/fa";
 import { CiEdit } from "react-icons/ci";
 import { CiTrash } from "react-icons/ci";
+import EmptyListComponent from "./EmptyListComponent";
 const VoucherListComponent = () => {
   return (
     <div>
@@ -87,14 +88,7 @@ const VoucherListComponent = () => {
               </td>
             </tr>
             {/* empty list */}
-            <tr className="odd:bg-white odd:dark:bg-slate-900 even:bg-slate-50 even:dark:bg-slate-800 border-b dark:border-slate-700 ">
-              <td colSpan={5} className="px-6 py-6">
-                <div className="flex flex-col gap-3 justify-center items-center">
-                  <img src={emptyList} alt={"emptyList"} className="w-44" />
-                  <p className="text-blue-500">There is no lists.</p>
-                </div>
-              </td>
-            </tr>
+           <EmptyListComponent/>
           </tbody>
         </table>
       </div>
