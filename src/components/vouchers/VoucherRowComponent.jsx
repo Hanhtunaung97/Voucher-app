@@ -5,15 +5,18 @@ import toast from "react-hot-toast";
 import SweetAlert2 from "react-sweetalert2";
 import { useSWRConfig } from "swr";
 import { quantum } from "ldrs";
+import { useNavigate } from "react-router-dom";
 quantum.register();
 
 const VoucherRowComponent = ({
   voucher: { id, voucher_id, customer_name, customer_email, sale_date },
 }) => {
+  const nav=useNavigate();
   const [isDelete, setIsDelete] = useState(false);
   const [swalProps, setSwalProps] = useState({});
   const { mutate } = useSWRConfig();
-  const handleDeleteBtn = async () => {
+  const handleDeleteBtn = async (e) => {
+    e.stopPropagation();
     setSwalProps({
       show: true,
       title: "Are you sure?",
@@ -43,9 +46,12 @@ const VoucherRowComponent = ({
       },
     });
   };
+  const handleNavBtn=() => {
+    nav(`/vouchers/${id}`);
+  }
   return (
     <>
-      <tr className=" odd:bg-white odd:dark:bg-slate-900 even:bg-blue-50 even:dark:bg-slate-800  dark:border-slate-700">
+      <tr onClick={handleNavBtn} className=" hover:bg-blue-50 duration-200 cursor-pointer border-b border-b-blue-100 bg-white odd:dark:bg-slate-900  even:dark:bg-slate-800  dark:border-slate-700">
         <td className="px-6 py-4">{voucher_id}</td>
         <th
           scope="row"
