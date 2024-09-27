@@ -20,4 +20,5 @@ export { default as VoucherTableComponent } from "./vouchers/VoucherTableCompone
 export { default as VoucherGroupComponent } from "./vouchers/VoucherGroupComponent";
 export {default as ShowDateComponent} from "./utilities/ShowDateComponent";
 export {default as ProductGroupComponent} from "./products/ProductGroupComponent";
-export {default as ProductTableComponent} from "./products/ProductTableComponent"
+export {default as ProductTableComponent} from "./products/ProductTableComponent";
+export {default as VoucherDetailComponent} from "./vouchers/VoucherDetailComponent";
