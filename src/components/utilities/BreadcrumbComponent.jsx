@@ -4,7 +4,7 @@ import { FaHome } from "react-icons/fa";
 import { PiGreaterThan } from "react-icons/pi";
 const BreadCrumbComponent = ({ currentPageTitle, links }) => {
   return (
-    <div className="flex gap-3 w-full mb-5">
+    <div className="flex gap-3 w-full mb-5 print:hidden">
       <nav className="flex" aria-label="Breadcrumb">
         <ol className="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
           <li className="inline-flex items-center">

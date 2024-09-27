@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const HeaderComponent = () => {
   return (
-    <header className="mb-5">
+    <header className="mb-5 print:hidden">
       <ContainerComponent>
         <div className="flex flex-col gap-1 py-5">
           <Link to={"/"} className="font-heading font-bold text-lg md:text-2xl text-slate-800">
