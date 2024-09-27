@@ -58,10 +58,7 @@ const SaleTable = () => {
           </tfoot>
         </table>
       </div>
-      <div className="hidden mt-0 print:flex flex-col gap-3 justify-center items-center print:mt-10">
-        <p className="font-bold">ဝယ်ယူအားပေးမူ့ကို ကျေးဇူး အထူးတင်ရှိပါသည်။</p>
-        <p className="text-slate-600">နောက်လည်း လာအားပေးပါခင်ဗျာ။</p>
-      </div>
+      
     </>
   );
 };
