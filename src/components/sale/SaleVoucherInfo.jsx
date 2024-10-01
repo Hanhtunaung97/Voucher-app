@@ -10,7 +10,7 @@ import useSaleRecordStore from "../../store/useSaleRecordStore";
 import { useNavigate } from "react-router-dom";
 dotSpinner.register();
 const SaleVoucherInfo = () => {
-  const nav=useNavigate();
+  const nav = useNavigate();
   const [isSending, setIsSending] = useState(false);
   const saleDate = new Date().toISOString().slice(0, 10);
   const {
@@ -27,32 +27,37 @@ const SaleVoucherInfo = () => {
     const netTotal = total + tax;
     const currentVoucher = { ...data, saleRecords, total, tax, netTotal };
     setIsSending(true);
-    await fetch(import.meta.env.VITE_API_URL + "/vouchers", {
+    const res=await fetch(import.meta.env.VITE_API_URL + "/vouchers", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(currentVoucher),
     });
+    const json=await res.json();
     setIsSending(false);
     reset();
     resetSaleRecord();
-    toast.success(`${data.customer_name} voucher is created successfully`);
+    toast.success(`${data.customer_name}'s voucher is created successfully`);
     console.log(currentVoucher);
+    console.log(json);
+    if(json.redirect_to_Detail){
+      nav(`/vouchers/${json.id}`);
+    }
   };
-  const handleNavBtn=() => {
+  const handleNavBtn = () => {
     nav("/vouchers");
-  }
+  };
   return (
-    <div className="flex flex-col justify-center gap-10">
+    <div className="flex flex-col justify-center gap-10 pb-10">
       <div className="flex justify-end items-center">
-      <button
-        onClick={handleNavBtn}
+        <button
+          onClick={handleNavBtn}
           type="button"
           className="text-white  bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 flex items-center gap-2"
         >
-         Voucher Lists
-          <HiOutlineCurrencyDollar className="w-5 h-5 text-white "/>
+          Voucher Lists
+          <HiOutlineCurrencyDollar className="w-5 h-5 text-white " />
         </button>
       </div>
       <form onSubmit={handleSubmit(handleSaleVoucherForm)} id="saleVoucherForm">
@@ -191,13 +196,27 @@ const SaleVoucherInfo = () => {
         <SaleForm />
         <SaleTable />
       </>
-      <div className="flex justify-end items-center gap-x-3">
+      <div className="flex flex-col justify-center items-end gap-3">
         <div className="flex items-start ">
+          <label
+            htmlFor="correct_check"
+            className={`${
+              errors.correct_check && "hidden"
+            } me-2 text-sm font-medium text-slate-500 dark:text-slate-300`}
+          >
+            Every Field is Correct.
+          </label>
+          {errors.correct_check?.type === "required" && (
+            <p className="text-red-500 me-2 text-sm">
+              Correct check is required !
+            </p>
+          )}
           <div className="flex items-center h-5">
             <input
               {...register("correct_check", { required: true })}
               disabled={isSending}
               id="correct_check"
+              form="saleVoucherForm"
               type="checkbox"
               defaultValue
               className={`${
@@ -205,21 +224,29 @@ const SaleVoucherInfo = () => {
                 " border border-red-300 focus:ring-3 focus:ring-red-500 bg-white"
               } disabled:opacity-75 w-4 h-4 border border-slate-300 rounded bg-slate-50 focus:ring-3 focus:ring-blue-300 dark:bg-slate-700 dark:border-slate-600 dark:focus:ring-blue-600 dark:ring-offset-slate-800 dark:focus:ring-offset-slate-800`}
             />
-            {errors.correct_check?.type === "required" && (
-              <p className="text-red-500 ms-2 text-sm">
-                Correct check is required !
-              </p>
-            )}
           </div>
-          <label
-            htmlFor="correct_check"
-            className={`${
-              errors.correct_check && "hidden"
-            } ms-2 text-sm font-medium text-slate-500 dark:text-slate-300`}
-          >
-            Every Field is Correct.
-          </label>
         </div>
+
+        <div className="flex items-start ">
+          <label
+            htmlFor="redirect_to_Detail"
+            className={`
+            me-2 text-sm font-medium text-slate-500 dark:text-slate-300`}
+          >
+            Redirect to Voucher Detail
+          </label>
+          <div className="flex items-center h-5">
+            <input
+              {...register("redirect_to_Detail")}
+              disabled={isSending}
+              id="redirect_to_Detail"
+              form="saleVoucherForm"
+              type="checkbox"
+              className={`disabled:opacity-75 w-4 h-4 border border-slate-300 rounded bg-slate-50 focus:ring-3 focus:ring-blue-300 dark:bg-slate-700 dark:border-slate-600 dark:focus:ring-blue-600 dark:ring-offset-slate-800 dark:focus:ring-offset-slate-800`}
+            />
+          </div>
+        </div>
+
         <button
           form="saleVoucherForm"
           type="submit"

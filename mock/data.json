@@ -111,6 +111,110 @@
       "tax": 95.9988,
       "netTotal": 895.9888,
       "id": 2
+    },
+    {
+      "voucher_id": "INV-20241001-134645-1954",
+      "customer_name": "THQ",
+      "customer_email": "THQ123@gmail.com",
+      "sale_date": "2024-10-01",
+      "correct_check": "true",
+      "redirect_to_Detail": true,
+      "saleRecords": [
+        {
+          "id": 1727761631975,
+          "product": {
+            "id": 8,
+            "product_name": "MacBook Air",
+            "price": 1099.99,
+            "created_at": "2022-11-05T17:30:00.000Z"
+          },
+          "quantity": "1",
+          "cost": 1099.99,
+          "created_at": "2024-10-01T05:47:11.975Z"
+        }
+      ],
+      "total": 1099.99,
+      "tax": 131.9988,
+      "netTotal": 1231.9888,
+      "id": 3
+    },
+    {
+      "voucher_id": "INV-20241001-134953-8559",
+      "customer_name": "Tiger",
+      "customer_email": "tiger123@gmail.com",
+      "sale_date": "2024-10-01",
+      "correct_check": "true",
+      "redirect_to_Detail": false,
+      "saleRecords": [
+        {
+          "id": 1727761804367,
+          "product": {
+            "product_name": "I phone 16",
+            "price": "979",
+            "created_at": "2024-09-17T18:05:13.843Z",
+            "id": 11
+          },
+          "quantity": "1",
+          "cost": 979,
+          "created_at": "2024-10-01T05:50:04.367Z"
+        }
+      ],
+      "total": 979,
+      "tax": 117.47999999999999,
+      "netTotal": 1096.48,
+      "id": 4
+    },
+    {
+      "voucher_id": "INV-20241001-140410-4208",
+      "customer_name": "Kyaw Kyaw",
+      "customer_email": "littlehanhtunaung97@gmail.com",
+      "sale_date": "2024-10-01",
+      "correct_check": "true",
+      "redirect_to_Detail": false,
+      "saleRecords": [
+        {
+          "id": 1727762718951,
+          "product": {
+            "id": 8,
+            "product_name": "MacBook Air",
+            "price": 1099.99,
+            "created_at": "2022-11-05T17:30:00.000Z"
+          },
+          "quantity": "1",
+          "cost": 1099.99,
+          "created_at": "2024-10-01T06:05:18.951Z"
+        }
+      ],
+      "total": 1099.99,
+      "tax": 131.9988,
+      "netTotal": 1231.9888,
+      "id": 5
+    },
+    {
+      "voucher_id": "INV-20241001-140909-2101",
+      "customer_name": "theintnandarzaw",
+      "customer_email": "theint123@gmail.com",
+      "sale_date": "2024-10-01",
+      "correct_check": "true",
+      "redirect_to_Detail": true,
+      "saleRecords": [
+        {
+          "id": 1727762960638,
+          "product": {
+            "product_name": "I phone 16 pro max",
+            "price": "1400",
+            "created_at": "2024-09-17T18:09:56.207Z",
+            "id": 12
+          },
+          "quantity": "1",
+          "cost": 1400,
+          "created_at": "2024-10-01T06:09:20.638Z"
+        }
+      ],
+      "total": 1400,
+      "tax": 168,
+      "netTotal": 1568,
+      "id": 6
     }
   ]
 }
