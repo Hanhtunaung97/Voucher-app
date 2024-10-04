@@ -5,9 +5,12 @@ import EmptyListComponent from "../utilities/EmptyListComponent";
 import VoucherRowComponent from "./VoucherRowComponent";
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
-const VoucherGroupComponent = () => {
+const VoucherGroupComponent = ({ search }) => {
+  console.log(search);
   const { data, isLoading, error } = useSWR(
-    import.meta.env.VITE_API_URL + "/vouchers",
+    search
+      ? `${import.meta.env.VITE_API_URL}/vouchers?voucher_id_like=${search}`
+      : `${import.meta.env.VITE_API_URL}/vouchers`,
     fetcher
   );
   return (

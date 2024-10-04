@@ -1,12 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { FaSearch, FaFileInvoiceDollar } from "react-icons/fa";
 import VoucherTableComponent from "./VoucherTableComponent";
 import { Link, useNavigate } from "react-router-dom";
+import {debounce} from "lodash";
 const VoucherListComponent = () => {
   const nav = useNavigate();
+  const [search,setSearch]=useState("");
   const handleNavBtn = () => {
     nav("/sale");
   };
+  const handleSearchInput=debounce((e) => {
+    // console.log(e.target.value);
+    setSearch(e.target.value);
+  },1000);
   return (
     <div>
       {/* Search and Add */}
@@ -16,6 +22,7 @@ const VoucherListComponent = () => {
             <FaSearch className="w-4 h-4 text-slate-500 dark:text-slate-400" />
           </div>
           <input
+          onChange={handleSearchInput}
             type="search"
             className="bg-slate-50 border border-slate-300 text-slate-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-slate-700 dark:border-slate-600 dark:placeholder-slate-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             placeholder="Search Voucher"
@@ -31,7 +38,7 @@ const VoucherListComponent = () => {
         </button>
       </div>
       {/* Voucher Table */}
-      <VoucherTableComponent />
+      <VoucherTableComponent search={search} />
     </div>
   );
 };
