@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { FaPlus } from "react-icons/fa6";
 import { Link } from "react-router-dom";
+import {debounce} from 'lodash';
 import ProductTableComponent from "./ProductTableComponent";
 const ProductListComponent = () => {
+  const [search,setSearch]=useState("");
+  const handleSearchInput=debounce((e) => {
+    setSearch(e.target.value);
+  },1000)
   return (
     <div className="w-full pb-5">
       {/* Search and Add */}
@@ -14,6 +19,7 @@ const ProductListComponent = () => {
           </div>
           <input
             type="search"
+            onChange={handleSearchInput}
             className="bg-slate-50 border border-slate-300 text-slate-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-slate-700 dark:border-slate-600 dark:placeholder-slate-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             placeholder="Search Product"
           />
@@ -27,7 +33,7 @@ const ProductListComponent = () => {
         </Link>
       </div>
       {/* Product Table */}
-      <ProductTableComponent/>
+      <ProductTableComponent search={search}/>
     </div>
   );
 };

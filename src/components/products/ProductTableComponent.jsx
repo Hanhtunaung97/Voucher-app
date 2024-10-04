@@ -2,7 +2,7 @@ import React from 'react'
 import ProductGroupComponent from './ProductGroupComponent'
 
 
-const ProductTableComponent = () => {
+const ProductTableComponent = ({search}) => {
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
     <table className="w-full text-sm text-left rtl:text-right text-slate-500 dark:text-slate-400 overflow-hidden">
@@ -26,7 +26,7 @@ const ProductTableComponent = () => {
         </tr>
       </thead>
       <tbody>
-       <ProductGroupComponent/>
+       <ProductGroupComponent search={search}/>
       </tbody>
     </table>
   </div>
