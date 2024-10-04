@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { CiTrash } from "react-icons/ci";
+import { CiTrash,CiLink } from "react-icons/ci";
 import ShowDateComponent from "../utilities/ShowDateComponent";
 import toast from "react-hot-toast";
 import SweetAlert2 from "react-sweetalert2";
 import { useSWRConfig } from "swr";
 import { quantum } from "ldrs";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 quantum.register();
 
 const VoucherRowComponent = ({
@@ -67,7 +67,7 @@ const VoucherRowComponent = ({
         </td>
         <td className="px-6 py-4">
           <div className="flex space-x-2 justify-end">
-            <div className="inline-flex rounded-md shadow-sm" role="group">
+            <div className="inline-flex rounded-md gap-2" role="group">            
               <button
                 onClick={handleDeleteBtn}
                 type="button"
@@ -81,6 +81,12 @@ const VoucherRowComponent = ({
                   <CiTrash className="w-4 h-4 duration-100 group-hover:w-5 group-hover:h-5" />
                 )}
               </button>
+              <Link
+                to={`/vouchers/${id}`}
+                className="group duration-200 size-8 flex justify-center items-center text-sm font-medium text-blue-500 bg-white border border-blue-400 rounded-full hover:bg-blue-100 hover:text-blue-700 focus:z-10 focus:border-0 focus:ring-2 focus:ring-blue-200 focus:text-blue-700 dark:bg-slate-800 dark:border-slate-700 dark:text-white dark:hover:text-white dark:hover:bg-slate-700 dark:focus:ring-blue-500 dark:focus:text-white"
+              >
+                <CiLink className="w-4 h-4 group-hover:w-5 group-hover:h-5" />
+              </Link>
             </div>
           </div>
         </td>
