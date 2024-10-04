@@ -112,7 +112,7 @@ const SaleForm = () => {
           <div className="col-span-1">
             <button
               type="submit"
-              className="text-blue-700 border border-blue-300 bg-white hover:bg-blue-100   focus:ring focus:outline-none focus:ring-blue-100  rounded-lg text-sm w-full text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 duration-200 h-full font-semibold active:scale-95"
+              className="text-blue-700 border border-blue-300 bg-white hover:bg-blue-100   focus:ring focus:outline-none focus:ring-blue-100  rounded-lg text-xs lg:text-sm w-full text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 duration-200 h-full font-semibold active:scale-95"
             >
               Add Product
             </button>
