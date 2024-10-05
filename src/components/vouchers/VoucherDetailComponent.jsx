@@ -2,13 +2,13 @@ import React, { useRef } from "react";
 import { useParams } from "react-router-dom";
 import useSWR from "swr";
 import printJS from "print-js";
-import html2pdf from 'html2pdf.js';
-import {  HiOutlinePrinter } from "react-icons/hi2";
+import html2pdf from "html2pdf.js";
+import { HiOutlinePrinter } from "react-icons/hi2";
 import { FaFilePdf } from "react-icons/fa";
 const fetcher = (url) => fetch(url).then((res) => res.json());
 const VoucherDetailComponent = () => {
   const { id } = useParams();
-  const pdfRef=useRef();
+  const pdfRef = useRef();
   const { data, error, isLoading } = useSWR(
     import.meta.env.VITE_API_URL + `/vouchers/${id}`,
     fetcher
@@ -50,7 +50,7 @@ const VoucherDetailComponent = () => {
             {data && (
               <div className="flex flex-col gap-7">
                 <div
-                ref={pdfRef}
+                  ref={pdfRef}
                   id="printable-section"
                   className="max-w-full print:w-[14.8cm] shadow print:shadow-none rounded-lg p-5 bg-white "
                 >
@@ -106,14 +106,16 @@ const VoucherDetailComponent = () => {
                           Total
                         </td>
                         <td className="py-2 text-right text-sm">
-                          {data.total}
+                          {data.total.toFixed(2)}
                         </td>
                       </tr>
                       <tr className="border-b border-blue-100">
                         <td className="py-2 text-right text-sm" colSpan={4}>
                           Tax (12%)
                         </td>
-                        <td className="py-2 text-right text-sm">{data.tax}</td>
+                        <td className="py-2 text-right text-sm">
+                          {data.tax.toFixed(2)}
+                        </td>
                       </tr>
                       <tr className="border-b border-blue-100">
                         <td
@@ -123,7 +125,7 @@ const VoucherDetailComponent = () => {
                           Net Total
                         </td>
                         <td className="py-2 text-right text-sm">
-                          {data.netTotal}
+                          {data.netTotal.toFixed(2)}
                         </td>
                       </tr>
                     </tfoot>
