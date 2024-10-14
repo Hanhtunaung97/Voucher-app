@@ -5,6 +5,7 @@ export { default as ModuleBtnComponent } from "./ModuleBtnComponent";
 export { default as ProductListComponent } from "./products/ProductListComponent";
 export { default as VoucherListComponent } from "./vouchers/VoucherListComponent";
 export { default as SkeletonLoaderComponent } from "./utilities/SkeletonLoaderComponent";
+export {default as SkeletonLoaderVoucherComponent} from "./utilities/SkeletonLoaderVoucherComponent";
 export { default as ProductRowComponent } from "./products/ProductRowComponent";
 export { default as EmptyListComponent } from "./utilities/EmptyListComponent";
 export { default as AddNewProductComponent } from "./products/AddNewProductComponent";

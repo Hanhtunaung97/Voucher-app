@@ -1,26 +1,24 @@
 import React from "react";
 import useSWR from "swr";
-import SkeletonLoaderComponent from "../utilities/SkeletonLoaderComponent";
 import EmptyListComponent from "../utilities/EmptyListComponent";
 import VoucherRowComponent from "./VoucherRowComponent";
+import SkeletonLoaderVoucherComponent from "../utilities/SkeletonLoaderVoucherComponent";
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
-const VoucherGroupComponent = ({ search }) => {
-  console.log(search);
+const VoucherGroupComponent = ({fetchUrl}) => {
+
   const { data, isLoading, error } = useSWR(
-    search
-      ? `${import.meta.env.VITE_API_URL}/vouchers?voucher_id_like=${search}`
-      : `${import.meta.env.VITE_API_URL}/vouchers`,
+    fetchUrl,
     fetcher
   );
   return (
     <>
       {isLoading ? (
-        <SkeletonLoaderComponent />
+        <SkeletonLoaderVoucherComponent/>
       ) : (
         <>
-          {data.length === 0 && <EmptyListComponent />}
-          {data.map((voucher, index) => (
+          {data?.data?.length === 0 && <EmptyListComponent />}
+          {data?.data?.map((voucher, index) => (
             <VoucherRowComponent
               key={voucher.id}
               voucher={voucher}

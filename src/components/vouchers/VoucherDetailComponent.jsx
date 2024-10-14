@@ -47,7 +47,7 @@ const VoucherDetailComponent = () => {
           </div>
         ) : (
           <>
-            {data && (
+            {data?.data && (
               <div className="flex flex-col gap-7">
                 <div
                   ref={pdfRef}
@@ -59,12 +59,14 @@ const VoucherDetailComponent = () => {
                       <h1 className="text-xl lg:text-2xl font-bold mb-2 font-heading">
                         INVOICE
                       </h1>
-                      <p className="text-sm lg:text-base">{data.voucher_id}</p>
+                      <p className="text-sm lg:text-base">
+                        {data.data.voucher_id}
+                      </p>
                     </div>
                     <div className="text-right">
                       <p className="font-bold">Invoice to</p>
-                      <p className="text-sm">{data.customer_name}</p>
-                      <p className="text-xs">Date: {data.sale_date}</p>
+                      <p className="text-sm">{data.data.customer_name}</p>
+                      <p className="text-xs">Date: {data.data.sale_date}</p>
                     </div>
                   </div>
 
@@ -79,7 +81,7 @@ const VoucherDetailComponent = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {data.saleRecords.map((record, index) => (
+                      {data.data.records.map((record, index) => (
                         <tr
                           key={record.id}
                           className="border-b border-blue-100 "
@@ -106,7 +108,7 @@ const VoucherDetailComponent = () => {
                           Total
                         </td>
                         <td className="py-2 text-right text-sm">
-                          {data.total.toFixed(2)}
+                          {parseFloat(data.data.total).toFixed(2)}
                         </td>
                       </tr>
                       <tr className="border-b border-blue-100">
@@ -114,7 +116,7 @@ const VoucherDetailComponent = () => {
                           Tax (12%)
                         </td>
                         <td className="py-2 text-right text-sm">
-                          {data.tax.toFixed(2)}
+                          {parseFloat(data.data.tax).toFixed(2)}
                         </td>
                       </tr>
                       <tr className="border-b border-blue-100">
@@ -125,7 +127,7 @@ const VoucherDetailComponent = () => {
                           Net Total
                         </td>
                         <td className="py-2 text-right text-sm">
-                          {data.netTotal.toFixed(2)}
+                          {parseFloat(data.data.netTotal).toFixed(2)}
                         </td>
                       </tr>
                     </tfoot>

@@ -1,7 +1,7 @@
 import React from 'react'
 import VoucherGroupComponent from './VoucherGroupComponent'
 
-const VoucherTableComponent = ({search}) => {
+const VoucherTableComponent = ({fetchUrl}) => {
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
     <table className="w-full text-sm text-left rtl:text-right text-slate-500 dark:text-slate-400 overflow-hidden">
@@ -25,7 +25,7 @@ const VoucherTableComponent = ({search}) => {
         </tr>
       </thead>
       <tbody>
-        <VoucherGroupComponent search={search}/>
+        <VoucherGroupComponent fetchUrl={fetchUrl} />
       </tbody>
     </table>
   </div>
