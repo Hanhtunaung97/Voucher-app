@@ -27,6 +27,12 @@ const SkeletonLoaderComponent = () => {
               <div className="w-12 h-4 bg-slate-300 dark:bg-slate-700 rounded"></div>
             </div>
           </td>
+          <td className="px-6 py-4 text-end">
+            <div className="flex flex-col space-y-1 text-xs items-end">
+              <div className="w-16 h-4 bg-slate-300 dark:bg-slate-700 rounded"></div>
+              <div className="w-12 h-4 bg-slate-300 dark:bg-slate-700 rounded"></div>
+            </div>
+          </td>
           <td className="px-6 py-4">
             <div className="flex space-x-2 justify-end">
               <div className="inline-flex gap-1 rounded-md shadow-sm" role="group">
