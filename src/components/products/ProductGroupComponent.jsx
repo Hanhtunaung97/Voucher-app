@@ -10,7 +10,7 @@ const ProductGroupComponent = ({ fetchUrl }) => {
     fetchUrl,
     fetcher
   )
-   console.log(data);
+  //  console.log(data);
   return (
     <>
       {isLoading ? (

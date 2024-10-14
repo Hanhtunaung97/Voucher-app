@@ -22,3 +22,4 @@ export {default as ShowDateComponent} from "./utilities/ShowDateComponent";
 export {default as ProductGroupComponent} from "./products/ProductGroupComponent";
 export {default as ProductTableComponent} from "./products/ProductTableComponent";
 export {default as VoucherDetailComponent} from "./vouchers/VoucherDetailComponent";
+export {default as PaginationComponent} from "./utilities/PaginationComponent";

@@ -4,9 +4,19 @@ import { FaPlus } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import {debounce} from 'lodash';
 import ProductTableComponent from "./ProductTableComponent";
+import PaginationComponent from "../utilities/PaginationComponent";
+import useSWR from "swr";
+const fetcher = (url) => fetch(url).then((res) => res.json());
 const ProductListComponent = () => {
   // const [search,setSearch]=useState("");
   const [fetchUrl,setFetchUrl]=useState(`${import.meta.env.VITE_API_URL}/products`);
+  const { data, error, isLoading } = useSWR(
+    fetchUrl,
+    fetcher
+  )
+  const RefetchUrl=(url) => {
+    setFetchUrl(url)
+  }
   const handleSearchInput=debounce((e) => {
     // setSearch(e.target.value);
     setFetchUrl(`${import.meta.env.VITE_API_URL}/products?q=${e.target.value}`)
@@ -36,6 +46,7 @@ const ProductListComponent = () => {
       </div>
       {/* Product Table */}
       <ProductTableComponent fetchUrl={fetchUrl}/>
+      {!isLoading &&  <PaginationComponent links={data?.links} meta={data?.meta} RefetchUrl={RefetchUrl} />}
     </div>
   );
 };
