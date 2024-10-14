@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 import ShowDateComponent from "../utilities/ShowDateComponent";
 newtonsCradle.register();
 const ProductRowComponent = ({
-  product: { id, product_name, price, created_at },
+  product: { id, product_name, price, created_at, updated_at },
 }) => {
   const [isDelete, setIsDelete] = useState(false);
   const [swalProps, setSwalProps] = useState({});
@@ -35,12 +35,20 @@ const ProductRowComponent = ({
           show: false,
         });
         setIsDelete(true);
-        await fetch(import.meta.env.VITE_API_URL + `/products/${id}`, {
-          method: "DELETE",
-        });
-        setIsDelete(false);
-        mutate(import.meta.env.VITE_API_URL + "/products");
-        toast.success(`${product_name} product deleted successfully`);
+        const res = await fetch(
+          import.meta.env.VITE_API_URL + `/products/${id}`,
+          {
+            method: "DELETE",
+          }
+        );
+        const json = res.json();
+        if (res.status == 200) {
+          mutate(import.meta.env.VITE_API_URL + "/products");
+          toast.success(`${product_name} product deleted successfully`);
+          setIsDelete(false);
+        } else {
+          toast.error(json.message);
+        }
       },
     });
     // console.log(id);
@@ -59,6 +67,11 @@ const ProductRowComponent = ({
         <td className="px-6 py-4 text-end">
           <div className="flex flex-col space-y-0 text-xs">
             <ShowDateComponent timeStamp={created_at} />
+          </div>
+        </td>
+        <td className="px-6 py-4 text-end">
+          <div className="flex flex-col space-y-0 text-xs">
+            <ShowDateComponent timeStamp={updated_at} />
           </div>
         </td>
         <td className="px-6 py-4">
@@ -80,7 +93,8 @@ const ProductRowComponent = ({
                     <l-newtons-cradle
                       size="36"
                       speed="1.4"
-                      color="red"
+                      color="#f05252"
+                      // className="fill-red-500"
                     ></l-newtons-cradle>
                   </>
                 ) : (

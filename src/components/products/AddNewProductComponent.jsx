@@ -23,18 +23,26 @@ const AddNewProductComponent = () => {
       created_at: data.created_at,
     };
     setIsSending(true);
-    await fetch(import.meta.env.VITE_API_URL + "/products", {
+    const res = await fetch(import.meta.env.VITE_API_URL + "/products", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Accept: "application/json",
       },
       body: JSON.stringify(createdProduct),
     });
-    setIsSending(false);
-    reset();
-    toast.success(`${data.product_name} product created successfully`);
-    if (data.to_products) {
-      nav("/products");
+    console.log(res);
+    const json = await res.json();
+    if (res.status == 201) {
+      setIsSending(false);
+      reset();
+      toast.success(`${data.product_name} product created successfully`);
+      if (data.to_products) {
+        nav("/products");
+      }
+    } else {
+      toast.error(json.message);
+      setIsSending(false);
     }
   };
   return (
@@ -198,13 +206,7 @@ const AddNewProductComponent = () => {
                 </>
               )}
             </button>
-            <Link
-              to={"/products"}
-              type="button"
-              className="text-blue-700 border border-blue-200 bg-white hover:bg-blue-100   focus:ring focus:outline-none focus:ring-blue-100 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 duration-200"
-            >
-              Cancel
-            </Link>
+            <Link to={"/products"}>Cancel</Link>
           </div>
         </form>
       </div>

@@ -4,24 +4,23 @@ import SkeletonLoaderComponent from "../utilities/SkeletonLoaderComponent";
 import EmptyListComponent from "../utilities/EmptyListComponent";
 import ProductRowComponent from "./ProductRowComponent";
 const fetcher = (url) => fetch(url).then((res) => res.json());
-const ProductGroupComponent = ({ search }) => {
+const ProductGroupComponent = ({ fetchUrl }) => {
   // console.log(search);
   const { data, error, isLoading } = useSWR(
-    search
-      ? `${import.meta.env.VITE_API_URL}/products?product_name_like=${search}`
-      : `${import.meta.env.VITE_API_URL}/products`,
+    fetchUrl,
     fetcher
-  );
+  )
+   console.log(data);
   return (
     <>
       {isLoading ? (
         <SkeletonLoaderComponent />
       ) : (
         <>
-          {data.length === 0 ? (
+          {data?.data?.length === 0 ? (
             <EmptyListComponent />
           ) : (
-            data.map((el) => <ProductRowComponent key={el.id} product={el} />)
+            data?.data?.map((el) => <ProductRowComponent key={el.id} product={el} />)
           )}
         </>
       )}

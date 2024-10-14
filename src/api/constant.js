@@ -1,3 +1,3 @@
-const API_ENDPOINTS = "https://localhost:3001";
+const API_ENDPOINTS = "https://voucher-app-api.ygnsh.com/api/v1";
 
 export default API_ENDPOINTS;

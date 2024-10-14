@@ -22,7 +22,7 @@ const UpdateProductComponent = () => {
   } = useForm();
   const [isSending, setIsSending] = useState(false);
   dotSpinner.register();
-  const handleCreateForm = async (data) => {
+  const handleUpdateForm = async (data) => {
     console.log(data);
     data.created_at = new Date().toISOString();
     const updatedProduct = {
@@ -31,18 +31,27 @@ const UpdateProductComponent = () => {
       created_at: data.created_at,
     };
     setIsSending(true);
-    await fetch(import.meta.env.VITE_API_URL + `/products/${id}`, {
+    const res = await fetch(import.meta.env.VITE_API_URL + `/products/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
+        Accept: "application/json",
       },
       body: JSON.stringify(updatedProduct),
     });
-    setIsSending(false);
-
-    toast.success(`${data.product_name} product updated successfully`);
-    if (data.correct_check) {
-      nav("/products");
+    console.log(res);
+    const json = await res.json();
+    console.log(json);
+    if (res.status == 200) {
+      setIsSending(false);
+      if (data.correct_check) {
+        nav("/products");
+      }
+      toast.success(`${data.product_name} product updated successfully`);
+      reset();
+    } else {
+      setIsSending(false);
+      toast.error(json.message);
     }
   };
   return (
@@ -62,7 +71,7 @@ const UpdateProductComponent = () => {
           <SkeletonFormComponent />
         ) : (
           <>
-            <form onSubmit={handleSubmit(handleCreateForm)}>
+            <form onSubmit={handleSubmit(handleUpdateForm)}>
               <div className="mb-5">
                 <label
                   htmlFor="text"
@@ -77,7 +86,7 @@ const UpdateProductComponent = () => {
                     maxLength: 20,
                   })}
                   disabled={isSending}
-                  defaultValue={data.product_name}
+                  defaultValue={data?.data?.product_name}
                   type="text"
                   id="text"
                   className={`${
@@ -117,7 +126,7 @@ const UpdateProductComponent = () => {
                     max: 10000,
                   })}
                   disabled={isSending}
-                  defaultValue={data.price}
+                  defaultValue={data?.data?.price}
                   type="number"
                   id="price"
                   className={`${

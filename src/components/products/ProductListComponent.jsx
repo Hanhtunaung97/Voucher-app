@@ -5,9 +5,11 @@ import { Link } from "react-router-dom";
 import {debounce} from 'lodash';
 import ProductTableComponent from "./ProductTableComponent";
 const ProductListComponent = () => {
-  const [search,setSearch]=useState("");
+  // const [search,setSearch]=useState("");
+  const [fetchUrl,setFetchUrl]=useState(`${import.meta.env.VITE_API_URL}/products`);
   const handleSearchInput=debounce((e) => {
-    setSearch(e.target.value);
+    // setSearch(e.target.value);
+    setFetchUrl(`${import.meta.env.VITE_API_URL}/products?q=${e.target.value}`)
   },1000)
   return (
     <div className="w-full pb-5">
@@ -33,7 +35,7 @@ const ProductListComponent = () => {
         </Link>
       </div>
       {/* Product Table */}
-      <ProductTableComponent search={search}/>
+      <ProductTableComponent fetchUrl={fetchUrl}/>
     </div>
   );
 };
