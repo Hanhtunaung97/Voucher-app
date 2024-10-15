@@ -7,7 +7,7 @@ const useSaleRecordStore = create((set) => ({
   removeSaleRecord: (id) =>
     set((state) => ({
       records: state.records.filter(
-        (record) => record.id !== id
+        (record) => record.product_id !== id
       ),
     })),
   changeQuantity: (id, quantity) =>

@@ -32,7 +32,7 @@ const SaleForm = () => {
       ({ product: { id } }) => id === currentProductId
     );
     if (isExisted) {
-      changeQuantity(isExisted.id, data.quantity);
+      changeQuantity(isExisted.product_id, data.quantity);
     } else {
       addSaleRecord(currentSaleRecord);
     }
