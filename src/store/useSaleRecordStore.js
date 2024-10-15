@@ -1,32 +1,33 @@
 import { create } from "zustand";
 
 const useSaleRecordStore = create((set) => ({
-  saleRecords: [],
-  addSaleRecord: (saleRecord) =>
-    set((state) => ({ saleRecords: [...state.saleRecords, saleRecord] })),
+  records: [],
+  addSaleRecord: (record) =>
+    set((state) => ({ records: [...state.records, record] })),
   removeSaleRecord: (id) =>
     set((state) => ({
-      saleRecords: state.saleRecords.filter(
-        (saleRecord) => saleRecord.id !== id
+      records: state.records.filter(
+        (record) => record.id !== id
       ),
     })),
   changeQuantity: (id, quantity) =>
     set((state) => ({
-      saleRecords: state.saleRecords.map((saleRecord) => {
-        if (saleRecord.id === id) {
+      records: state.records.map((record) => {
+        if (record.product_id === id) {
           const newQuantity =
-            parseInt(saleRecord.quantity) + parseInt(quantity);
-          const newCost = parseFloat(saleRecord.product.price) * newQuantity;
+            parseInt(record.quantity) + parseInt(quantity);
+          const newCost = parseFloat(record.product.price) * newQuantity;
           return {
-            ...saleRecord,
+            ...record,
             quantity: newQuantity,
             cost: newCost,
           };
         }
-        return saleRecord;
+        return record;
       }),
     })),
-  resetSaleRecord: () => set((state) => ({ saleRecords: [] })),
+  resetSaleRecord: () => set((state) => ({ records: [] })),
 }));
 
 export default useSaleRecordStore;
+

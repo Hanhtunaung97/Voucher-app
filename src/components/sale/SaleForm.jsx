@@ -5,7 +5,7 @@ import useSaleRecordStore from "../../store/useSaleRecordStore";
 const fetcher = (url) => fetch(url).then((res) => res.json());
 const SaleForm = () => {
   const { data, error, isLoading } = useSWR(
-    import.meta.env.VITE_API_URL + "/products",
+    import.meta.env.VITE_API_URL + "/products?limit=100",
     fetcher
   );
   const {
@@ -14,20 +14,21 @@ const SaleForm = () => {
     formState: { errors },
     reset,
   } = useForm();
-  const { addSaleRecord, saleRecords, changeQuantity } = useSaleRecordStore();
+  const { addSaleRecord, records, changeQuantity } = useSaleRecordStore();
   const handleSaleForm = (data) => {
     const currentProduct = JSON.parse(data.product);
     const currentProductId = currentProduct.id;
     const created_at = new Date().toISOString();
     const currentSaleRecord = {
-      id: Date.now(),
+      // id: Date.now()
+      product_id: currentProduct.id,
       product: currentProduct,
       quantity: data.quantity,
       cost: currentProduct.price * data.quantity,
       created_at: created_at,
     };
     console.log(currentSaleRecord);
-    const isExisted = saleRecords.find(
+    const isExisted = records.find(
       ({ product: { id } }) => id === currentProductId
     );
     if (isExisted) {
@@ -70,7 +71,7 @@ const SaleForm = () => {
                 </option>
               )}
               {!isLoading &&
-                data.map((product) => (
+                data?.data?.map((product) => (
                   <option key={product.id} value={JSON.stringify(product)}>
                     {product.product_name}
                   </option>

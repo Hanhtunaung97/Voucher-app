@@ -4,12 +4,12 @@ import SaleRecord from "./SaleRecord";
 import EmptyListComponent from "../utilities/EmptyListComponent";
 
 const SaleRecordGroup = () => {
-  const { saleRecords } = useSaleRecordStore();
+  const { records } = useSaleRecordStore();
   return (
     <>
-      {saleRecords.length === 0 && <EmptyListComponent />}
-      {saleRecords.map((record,index) => (
-        <SaleRecord key={record.id} record={record} index={index} />
+      {records.length === 0 && <EmptyListComponent />}
+      {records.map((record,index) => (
+        <SaleRecord key={record.product.id} record={record} index={index} />
       ))}
     </>
   );

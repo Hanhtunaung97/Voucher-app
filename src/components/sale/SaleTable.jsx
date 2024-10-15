@@ -3,10 +3,10 @@ import SaleRecordGroup from "./SaleRecordGroup";
 import useSaleRecordStore from "../../store/useSaleRecordStore";
 
 const SaleTable = () => {
-  const {saleRecords}=useSaleRecordStore();
-  const total=saleRecords.reduce((acc,{cost})=>acc+cost,0);
+  const {records}=useSaleRecordStore();
+  const total=records.reduce((acc,{cost})=>acc+cost,0);
   const tax=total*0.12;
-  const netTotal=total+tax;
+  const net_total=total+tax;
   return (
     <>
       <div className="relative shadow-md sm:rounded-lg overflow-hidden">
@@ -53,7 +53,7 @@ const SaleTable = () => {
               <td className="px-6 py-4 text-end font-semibold" colSpan={4}>
                 Net Total (MYR)
               </td>
-              <td className="px-6 py-4 text-end">{netTotal.toFixed(2)}</td>
+              <td className="px-6 py-4 text-end">{net_total.toFixed(2)}</td>
             </tr>
           </tfoot>
         </table>

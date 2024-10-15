@@ -19,30 +19,39 @@ const SaleVoucherInfo = () => {
     formState: { errors },
     reset,
   } = useForm();
-  const { saleRecords, resetSaleRecord } = useSaleRecordStore();
+  const { records, resetSaleRecord } = useSaleRecordStore();
   const handleSaleVoucherForm = async (data) => {
     // to save on vouchers server
-    const total = saleRecords.reduce((acc, { cost }) => acc + cost, 0);
+    const total = records.reduce((acc, { cost }) => acc + cost, 0);
     const tax = total * 0.12;
-    const netTotal = total + tax;
-    const currentVoucher = { ...data, saleRecords, total, tax, netTotal };
+    const net_total = total + tax;
+    const currentVoucher = { ...data, records, total, tax, net_total };
+    console.log(currentVoucher);
     setIsSending(true);
     const res = await fetch(import.meta.env.VITE_API_URL + "/vouchers", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Accept: "application/json",
       },
       body: JSON.stringify(currentVoucher),
     });
     const json = await res.json();
-    setIsSending(false);
-    reset();
-    resetSaleRecord();
-    toast.success(`${data.customer_name}'s voucher is created successfully`);
-    console.log(currentVoucher);
     console.log(json);
-    if (json.redirect_to_Detail) {
-      nav(`/vouchers/${json.id}`);
+    if (res.status === 201) {
+      setIsSending(false);
+      reset();
+      resetSaleRecord();
+      toast.success(`${data.customer_name}'s voucher is created successfully`);
+      console.log(currentVoucher);
+      console.log(json);
+      if (json.redirect_to_Detail) {
+        nav(`/vouchers/${json.id}`);
+      }
+    } else {
+      toast.error(json.message);
+      console.log(json.message);
+      setIsSending(false);
     }
   };
   const handleNavBtn = () => {
@@ -193,95 +202,93 @@ const SaleVoucherInfo = () => {
             </div>
           </div>
           <div className="flex flex-col lg:flex-row justify-between items-end gap-5 lg:gap-0 mt-auto">
-          <div >
-            <button
-              onClick={handleNavBtn}
-              type="button"
-              className="text-blue-500 text-xs  bg-white border border-blue-400 hover:bg-blue-500 hover:text-white hover:border-none duration-200 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg  px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 flex items-center gap-1 w-full sm:w-auto"
-            >
-              <span>Lists</span>
-              <HiOutlineCurrencyDollar className="w-4 h-4 " />
-            </button>
-          </div>
-
-          <div className="flex flex-col justify-center items-end gap-2 ">
-            <div className=" flex justify-end items-center">
-              <label
-                htmlFor="correct_check"
-                className={`${
-                  errors.correct_check && "hidden"
-                } me-2 text-xs font-medium text-slate-500 dark:text-slate-300`}
+            <div>
+              <button
+                onClick={handleNavBtn}
+                type="button"
+                className="text-blue-500 text-xs  bg-white border border-blue-400 hover:bg-blue-500 hover:text-white hover:border-none duration-200 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg  px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 flex items-center gap-1 w-full sm:w-auto"
               >
-                Every Field is Correct.
-              </label>
-              {errors.correct_check?.type === "required" && (
-                <p className="text-red-500 me-2 text-xs">
-                  Correct check is required !
-                </p>
-              )}
-              <div className="flex items-center h-5">
-                <input
-                  {...register("correct_check", { required: true })}
-                  disabled={isSending}
-                  id="correct_check"
-                  form="saleVoucherForm"
-                  type="checkbox"
-                  defaultValue
+                <span>Lists</span>
+                <HiOutlineCurrencyDollar className="w-4 h-4 " />
+              </button>
+            </div>
+
+            <div className="flex flex-col justify-center items-end gap-2 ">
+              <div className=" flex justify-end items-center">
+                <label
+                  htmlFor="correct_check"
                   className={`${
-                    errors.correct_check &&
-                    " border border-red-300 focus:ring-3 focus:ring-red-500 bg-white"
-                  } disabled:opacity-75 w-4 h-4 border border-slate-300 rounded bg-slate-50 focus:ring-3 focus:ring-blue-300 dark:bg-slate-700 dark:border-slate-600 dark:focus:ring-blue-600 dark:ring-offset-slate-800 dark:focus:ring-offset-slate-800`}
-                />
+                    errors.correct_check && "hidden"
+                  } me-2 text-xs font-medium text-slate-500 dark:text-slate-300`}
+                >
+                  Every Field is Correct.
+                </label>
+                {errors.correct_check?.type === "required" && (
+                  <p className="text-red-500 me-2 text-xs">
+                    Correct check is required !
+                  </p>
+                )}
+                <div className="flex items-center h-5">
+                  <input
+                    {...register("correct_check", { required: true })}
+                    disabled={isSending}
+                    id="correct_check"
+                    form="saleVoucherForm"
+                    type="checkbox"
+                    defaultValue
+                    className={`${
+                      errors.correct_check &&
+                      " border border-red-300 focus:ring-3 focus:ring-red-500 bg-white"
+                    } disabled:opacity-75 w-4 h-4 border border-slate-300 rounded bg-slate-50 focus:ring-3 focus:ring-blue-300 dark:bg-slate-700 dark:border-slate-600 dark:focus:ring-blue-600 dark:ring-offset-slate-800 dark:focus:ring-offset-slate-800`}
+                  />
+                </div>
               </div>
-            </div>
 
-            <div className=" flex justify-end items-center">
-              <label
-                htmlFor="redirect_to_Detail"
-                className={`
+              <div className=" flex justify-end items-center">
+                <label
+                  htmlFor="redirect_to_Detail"
+                  className={`
             me-2 text-xs font-medium text-slate-500 dark:text-slate-300`}
-              >
-                Redirect to Voucher Detail
-              </label>
-              <div className="flex items-center h-5">
-                <input
-                  {...register("redirect_to_Detail")}
-                  disabled={isSending}
-                  id="redirect_to_Detail"
-                  form="saleVoucherForm"
-                  type="checkbox"
-                  className={`disabled:opacity-75 w-4 h-4 border border-slate-300 rounded bg-slate-50 focus:ring-3 focus:ring-blue-300 dark:bg-slate-700 dark:border-slate-600 dark:focus:ring-blue-600 dark:ring-offset-slate-800 dark:focus:ring-offset-slate-800`}
-                />
+                >
+                  Redirect to Voucher Detail
+                </label>
+                <div className="flex items-center h-5">
+                  <input
+                    {...register("redirect_to_Detail")}
+                    disabled={isSending}
+                    id="redirect_to_Detail"
+                    form="saleVoucherForm"
+                    type="checkbox"
+                    className={`disabled:opacity-75 w-4 h-4 border border-slate-300 rounded bg-slate-50 focus:ring-3 focus:ring-blue-300 dark:bg-slate-700 dark:border-slate-600 dark:focus:ring-blue-600 dark:ring-offset-slate-800 dark:focus:ring-offset-slate-800`}
+                  />
+                </div>
               </div>
-            </div>
 
-            <button
-              form="saleVoucherForm"
-              type="submit"
-              disabled={isSending}
-              className="text-white disabled:opacity-75 bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-xs w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 duration-200"
-            >
-              {isSending ? (
-                <>
-                  <div className="flex items-center justify-center gap-x-3">
-                    <span>Creating Voucher</span>
-                    <l-dot-spinner
-                      size="16"
-                      speed="0.9"
-                      color="white"
-                    ></l-dot-spinner>
-                  </div>
-                </>
-              ) : (
-                <>
-                  <span>Confirm Voucher</span>
-                </>
-              )}
-            </button>
+              <button
+                form="saleVoucherForm"
+                type="submit"
+                disabled={isSending}
+                className="text-white disabled:opacity-75 bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-xs w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 duration-200"
+              >
+                {isSending ? (
+                  <>
+                    <div className="flex items-center justify-center gap-x-3">
+                      <span>Creating Voucher</span>
+                      <l-dot-spinner
+                        size="16"
+                        speed="0.9"
+                        color="white"
+                      ></l-dot-spinner>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <span>Confirm Voucher</span>
+                  </>
+                )}
+              </button>
+            </div>
           </div>
-         
-          </div>
-        
         </form>
       </div>
     </div>
