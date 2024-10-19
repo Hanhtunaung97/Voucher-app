@@ -24,3 +24,5 @@ export {default as ProductGroupComponent} from "./products/ProductGroupComponent
 export {default as ProductTableComponent} from "./products/ProductTableComponent";
 export {default as VoucherDetailComponent} from "./vouchers/VoucherDetailComponent";
 export {default as PaginationComponent} from "./utilities/PaginationComponent";
+export {default as LoginComponent} from "./auth/LoginComponent";
+export {default as RegisterComponent} from "./auth/RegisterComponent";

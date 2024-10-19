@@ -6,3 +6,6 @@ export { default as VoucherDetailPage } from "./VoucherDetailPage";
 export { default as NotFoundPage } from "./NotFoundPage";
 export { default as ProductCreatePage } from "./ProductCreatePage";
 export { default as ProductEditPage } from "./ProductEditPage";
+export { default as LoginPage } from "./LoginPage";
+export { default as RegisterPage } from "./RegisterPage";
+export { default as DashboardPage } from "./DashboardPage";
