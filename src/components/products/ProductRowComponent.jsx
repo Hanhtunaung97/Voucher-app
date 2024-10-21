@@ -7,12 +7,14 @@ import toast from "react-hot-toast";
 import SweetAlert2 from "react-sweetalert2";
 import { Link } from "react-router-dom";
 import ShowDateComponent from "../utilities/ShowDateComponent";
+import useCookie from "react-use-cookie";
 newtonsCradle.register();
 const ProductRowComponent = ({
   product: { id, product_name, price, created_at, updated_at },
 }) => {
   const [isDelete, setIsDelete] = useState(false);
   const [swalProps, setSwalProps] = useState({});
+  const [token] = useCookie("my_token");
   const { mutate } = useSWRConfig();
   const handleDeleteBtn = async () => {
     setSwalProps({
@@ -39,6 +41,10 @@ const ProductRowComponent = ({
           import.meta.env.VITE_API_URL + `/products/${id}`,
           {
             method: "DELETE",
+            headers: {
+              Authorization: `Bearer ${token}`,
+              accept: "application/json",
+            },
           }
         );
         const json = res.json();
@@ -78,7 +84,7 @@ const ProductRowComponent = ({
           <div className="flex space-x-2 justify-end">
             <div className="inline-flex rounded-md shadow-sm" role="group">
               <Link
-                to={`/products/edit/${id}`}
+                to={`/dashboard/products/edit/${id}`}
                 className="group duration-200 size-10 flex justify-center items-center text-sm font-medium text-blue-500 bg-white border border-slate-200 rounded-s-lg hover:bg-blue-100 hover:text-blue-700 focus:z-10 focus:border-0 focus:ring-2 focus:ring-blue-200 focus:text-blue-700 dark:bg-slate-800 dark:border-slate-700 dark:text-white dark:hover:text-white dark:hover:bg-slate-700 dark:focus:ring-blue-500 dark:focus:text-white"
               >
                 <CiEdit className="w-4 h-4 group-hover:w-5 group-hover:h-5" />
@@ -91,7 +97,7 @@ const ProductRowComponent = ({
                 {isDelete ? (
                   <>
                     <l-newtons-cradle
-                      size="36"
+                      size="32"
                       speed="1.4"
                       color="#f05252"
                       // className="fill-red-500"

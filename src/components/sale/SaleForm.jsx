@@ -2,8 +2,15 @@ import React from "react";
 import useSWR from "swr";
 import { useForm } from "react-hook-form";
 import useSaleRecordStore from "../../store/useSaleRecordStore";
-const fetcher = (url) => fetch(url).then((res) => res.json());
+import useCookie from "react-use-cookie";
 const SaleForm = () => {
+  const [token] = useCookie("my_token");
+  const fetcher = (url) =>
+    fetch(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((res) => res.json());
   const { data, error, isLoading } = useSWR(
     import.meta.env.VITE_API_URL + "/products?limit=100",
     fetcher

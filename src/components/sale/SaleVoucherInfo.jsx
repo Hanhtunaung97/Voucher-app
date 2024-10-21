@@ -8,9 +8,11 @@ import SaleForm from "./SaleForm";
 import SaleTable from "./SaleTable";
 import useSaleRecordStore from "../../store/useSaleRecordStore";
 import { useNavigate } from "react-router-dom";
+import useCookie from "react-use-cookie";
 dotSpinner.register();
 const SaleVoucherInfo = () => {
   const nav = useNavigate();
+  const [token] = useCookie("my_token");
   const [isSending, setIsSending] = useState(false);
   const saleDate = new Date().toISOString().slice(0, 10);
   const {
@@ -33,6 +35,7 @@ const SaleVoucherInfo = () => {
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(currentVoucher),
     });
@@ -46,7 +49,7 @@ const SaleVoucherInfo = () => {
       console.log(currentVoucher);
       console.log(json);
       if (json.redirect_to_Detail) {
-        nav(`/vouchers/${json.id}`);
+        nav(`/dashboard/vouchers/${json.id}`);
       }
     } else {
       toast.error(json.message);
@@ -55,7 +58,7 @@ const SaleVoucherInfo = () => {
     }
   };
   const handleNavBtn = () => {
-    nav("/vouchers");
+    nav("/dashboard/vouchers");
   };
   return (
     <div className="grid grid-cols-4 gap-5 pb-10">
@@ -248,7 +251,9 @@ const SaleVoucherInfo = () => {
                 <label
                   htmlFor="redirect_to_Detail"
                   className={`
-            me-2 text-xs font-medium text-slate-500 dark:text-slate-300`}
+                    ${
+                      errors.redirect_to_Detail && "hidden"
+                    } me-2 text-xs font-medium text-slate-500 dark:text-slate-300`}
                 >
                   Redirect to Voucher Detail
                 </label>

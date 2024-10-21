@@ -1,17 +1,19 @@
 import React, { useState } from "react";
-import { CiTrash,CiLink } from "react-icons/ci";
+import { CiTrash, CiLink } from "react-icons/ci";
 import ShowDateComponent from "../utilities/ShowDateComponent";
 import toast from "react-hot-toast";
 import SweetAlert2 from "react-sweetalert2";
 import { useSWRConfig } from "swr";
 import { quantum } from "ldrs";
 import { Link, useNavigate } from "react-router-dom";
+import useCookie from "react-use-cookie";
 quantum.register();
 
 const VoucherRowComponent = ({
   voucher: { id, voucher_id, customer_name, customer_email, sale_date },
 }) => {
-  const nav=useNavigate();
+  const nav = useNavigate();
+  const [token] = useCookie("my_token");
   const [isDelete, setIsDelete] = useState(false);
   const [swalProps, setSwalProps] = useState({});
   const { mutate } = useSWRConfig();
@@ -39,6 +41,10 @@ const VoucherRowComponent = ({
         setIsDelete(true);
         await fetch(import.meta.env.VITE_API_URL + `/vouchers/${id}`, {
           method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            accept: "application/json",
+          },
         });
         setIsDelete(false);
         mutate(import.meta.env.VITE_API_URL + "/vouchers");
@@ -46,12 +52,15 @@ const VoucherRowComponent = ({
       },
     });
   };
-  const handleNavBtn=() => {
-    nav(`/vouchers/${id}`);
-  }
+  const handleNavBtn = () => {
+    nav(`/dashboard/vouchers/${id}`);
+  };
   return (
     <>
-      <tr onClick={handleNavBtn} className=" hover:bg-blue-50 duration-200 cursor-pointer border-b border-b-blue-100 bg-white odd:dark:bg-slate-900  even:dark:bg-slate-800  dark:border-slate-700">
+      <tr
+        onClick={handleNavBtn}
+        className=" hover:bg-blue-50 duration-200 cursor-pointer border-b border-b-blue-100 bg-white odd:dark:bg-slate-900  even:dark:bg-slate-800  dark:border-slate-700"
+      >
         <td className="px-6 py-4">{voucher_id}</td>
         <th
           scope="row"
@@ -67,7 +76,7 @@ const VoucherRowComponent = ({
         </td>
         <td className="px-6 py-4">
           <div className="flex space-x-2 justify-end">
-            <div className="inline-flex rounded-md gap-2" role="group">            
+            <div className="inline-flex rounded-md gap-2" role="group">
               <button
                 onClick={handleDeleteBtn}
                 type="button"

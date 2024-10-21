@@ -9,7 +9,7 @@ const BreadCrumbComponent = ({ currentPageTitle, links }) => {
         <ol className="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
           <li className="inline-flex items-center">
             <Link
-              to="/"
+              to="/dashboard"
               className="inline-flex gap-2  items-center text-sm font-medium text-slate-600 hover:text-blue-600 dark:text-slate-400 dark:hover:text-white"
             >
               <FaHome className="text-slate-700 w-4 h-4" />

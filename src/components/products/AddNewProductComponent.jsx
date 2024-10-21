@@ -3,9 +3,10 @@ import { useForm } from "react-hook-form";
 import { dotSpinner } from "ldrs";
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-
+import useCookie from "react-use-cookie";
 const AddNewProductComponent = () => {
   const nav = useNavigate();
+  const [token] = useCookie("my_token");
   const {
     register,
     handleSubmit,
@@ -28,17 +29,18 @@ const AddNewProductComponent = () => {
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(createdProduct),
     });
-    console.log(res);
     const json = await res.json();
+    console.log(json);
     if (res.status == 201) {
       setIsSending(false);
       reset();
       toast.success(`${data.product_name} product created successfully`);
       if (data.to_products) {
-        nav("/products");
+        nav("/dashboard/products");
       }
     } else {
       toast.error(json.message);
@@ -84,7 +86,7 @@ const AddNewProductComponent = () => {
             />
             {errors.product_name?.type === "required" && (
               <p className="text-red-500 mt-2 text-sm">
-                Product price is required !
+                Product Name is required !
               </p>
             )}
             {errors.product_name?.type === "min" && (
@@ -206,7 +208,13 @@ const AddNewProductComponent = () => {
                 </>
               )}
             </button>
-            <Link to={"/products"}>Cancel</Link>
+            <Link
+              to={"/dashboard/products"}
+              type="button"
+              className="text-blue-700 border border-blue-200 bg-white hover:bg-blue-100   focus:ring focus:outline-none focus:ring-blue-100 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 duration-200"
+            >
+              Cancel
+            </Link>
           </div>
         </form>
       </div>

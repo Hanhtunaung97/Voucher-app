@@ -2,25 +2,31 @@ import React, { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { FaPlus } from "react-icons/fa6";
 import { Link } from "react-router-dom";
-import {debounce} from 'lodash';
+import { debounce } from "lodash";
 import ProductTableComponent from "./ProductTableComponent";
 import PaginationComponent from "../utilities/PaginationComponent";
 import useSWR from "swr";
-const fetcher = (url) => fetch(url).then((res) => res.json());
+import useCookie from "react-use-cookie";
 const ProductListComponent = () => {
   // const [search,setSearch]=useState("");
-  const [fetchUrl,setFetchUrl]=useState(`${import.meta.env.VITE_API_URL}/products`);
-  const { data, error, isLoading } = useSWR(
-    fetchUrl,
-    fetcher
-  )
-  const RefetchUrl=(url) => {
-    setFetchUrl(url)
-  }
-  const handleSearchInput=debounce((e) => {
+  const [token] = useCookie("my_token");
+  const [fetchUrl, setFetchUrl] = useState(
+    `${import.meta.env.VITE_API_URL}/products`
+  );
+  const fetcher = (url) =>
+    fetch(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((res) => res.json());
+  const { data, error, isLoading } = useSWR(fetchUrl, fetcher);
+  const RefetchUrl = (url) => {
+    setFetchUrl(url);
+  };
+  const handleSearchInput = debounce((e) => {
     // setSearch(e.target.value);
-    setFetchUrl(`${import.meta.env.VITE_API_URL}/products?q=${e.target.value}`)
-  },1000)
+    setFetchUrl(`${import.meta.env.VITE_API_URL}/products?q=${e.target.value}`);
+  }, 1000);
   return (
     <div className="w-full pb-5">
       {/* Search and Add */}
@@ -37,7 +43,7 @@ const ProductListComponent = () => {
           />
         </div>
         <Link
-          to={"/products/create"}
+          to={"/dashboard/products/create"}
           className="text-white  bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 flex items-center gap-2"
         >
           Add New Product
@@ -45,8 +51,14 @@ const ProductListComponent = () => {
         </Link>
       </div>
       {/* Product Table */}
-      <ProductTableComponent fetchUrl={fetchUrl}/>
-      {!isLoading &&  <PaginationComponent links={data?.links} meta={data?.meta} RefetchUrl={RefetchUrl} />}
+      <ProductTableComponent fetchUrl={fetchUrl} />
+      {!isLoading && (
+        <PaginationComponent
+          links={data?.links}
+          meta={data?.meta}
+          RefetchUrl={RefetchUrl}
+        />
+      )}
     </div>
   );
 };

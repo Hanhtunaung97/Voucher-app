@@ -3,7 +3,10 @@ import { Link, useNavigate } from "react-router-dom";
 import mms from "../../assets/images/mms.png";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import useCookie from "react-use-cookie";
 const LoginComponent = () => {
+  const [token, setToken] = useCookie("my_token");
+  const [userCookie, setUserCookie] = useCookie("user_cookie");
   const nav = useNavigate();
   const [isSending, setIsSending] = useState(false);
   const {
@@ -13,10 +16,10 @@ const LoginComponent = () => {
     watch,
     reset,
   } = useForm();
-  const handleLoginForm =async (data) => {
+  const handleLoginForm = async (data) => {
     console.log(data);
     setIsSending(true);
-    const res = await fetch(import.meta.env.VITE_API_URL+"/login", {
+    const res = await fetch(import.meta.env.VITE_API_URL + "/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -30,6 +33,8 @@ const LoginComponent = () => {
       toast.success(`${json.user.name} is logged in successfully!`);
       reset();
       setIsSending(false);
+      setToken(json.token);
+      setUserCookie(JSON.stringify(json.user));
       nav("/dashboard");
     } else {
       toast.error(json.message);

@@ -11,7 +11,7 @@ const ProductCreatePage = () => {
       <ContainerComponent>
         <BreadCrumbComponent
           currentPageTitle="Product Create"
-          links={[{ name: "Products", path: "/products" }]}
+          links={[{ name: "Products", path: "/dashboard/products" }]}
         />
         <AddNewProductComponent />
       </ContainerComponent>

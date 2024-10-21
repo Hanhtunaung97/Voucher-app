@@ -5,10 +5,16 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import useSWR from "swr";
 import SkeletonFormComponent from "./SkeletonFormComponent";
-
-const fetcher = (url) => fetch(url).then((res) => res.json());
+import useCookie from "react-use-cookie";
 const UpdateProductComponent = () => {
   const { id } = useParams();
+  const [token] = useCookie("my_token");
+  const fetcher = (url) =>
+    fetch(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((res) => res.json());
   const { data, error, isLoading } = useSWR(
     import.meta.env.VITE_API_URL + `/products/${id}`,
     fetcher
@@ -36,6 +42,7 @@ const UpdateProductComponent = () => {
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(updatedProduct),
     });
@@ -45,7 +52,7 @@ const UpdateProductComponent = () => {
     if (res.status == 200) {
       setIsSending(false);
       if (data.correct_check) {
-        nav("/products");
+        nav("/dashboard/products");
       }
       toast.success(`${data.product_name} product updated successfully`);
       reset();
@@ -204,7 +211,7 @@ const UpdateProductComponent = () => {
                   )}
                 </button>
                 <Link
-                  to={"/products"}
+                  to={"/dashboard/products"}
                   type="button"
                   className="text-blue-700 border border-blue-200 bg-white hover:bg-blue-100   focus:ring focus:outline-none focus:ring-blue-100 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 duration-200"
                 >

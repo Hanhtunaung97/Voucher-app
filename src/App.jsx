@@ -11,9 +11,12 @@ import {
   VoucherPage,
   LoginPage,
   RegisterPage,
-  DashboardPage
+  DashboardPage,
+  UserProfilePage,
+  UserProfileChangeNamePage,
+  UserProfileChangeImagePage,
+  UserProfileChangePasswordPage,
 } from "./pages";
-import { HeaderComponent } from "./components";
 import { Toaster } from "react-hot-toast";
 
 const App = () => {
@@ -23,13 +26,26 @@ const App = () => {
         <Route path="/" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/dashboard" element={<DashboardPage />}>
-        <Route index element={<HomePage />} />
-        <Route path="products" element={<ProductsPage />} />
-        <Route path="products/create" element={<ProductCreatePage/>}/>
-        <Route path="products/edit/:id" element={<ProductEditPage/>}/>
-        <Route path="sale" element={<SalePage />} />
-        <Route path="vouchers" element={<VoucherPage />} />
-        <Route path="vouchers/:id" element={<VoucherDetailPage />} />
+          <Route index element={<HomePage />} />
+          <Route path="products" element={<ProductsPage />} />
+          <Route path="products/create" element={<ProductCreatePage />} />
+          <Route path="products/edit/:id" element={<ProductEditPage />} />
+          <Route path="sale" element={<SalePage />} />
+          <Route path="vouchers" element={<VoucherPage />} />
+          <Route path="vouchers/:id" element={<VoucherDetailPage />} />
+          <Route path="user-profile" element={<UserProfilePage />} />
+          <Route
+            path="user-profile/change-name"
+            element={<UserProfileChangeNamePage />}
+          />
+          <Route
+            path="user-profile/change-image"
+            element={<UserProfileChangeImagePage />}
+          />
+          <Route
+            path="user-profile/change-password"
+            element={<UserProfileChangePasswordPage />}
+          />
         </Route>
         <Route path="*" element={<NotFoundPage />} />
       </Routes>

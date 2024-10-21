@@ -5,15 +5,23 @@ import { Link, useNavigate } from "react-router-dom";
 import { debounce } from "lodash";
 import useSWR from "swr";
 import PaginationComponent from "../utilities/PaginationComponent";
+import useCookie from "react-use-cookie";
 const fetcher = (url) => fetch(url).then((res) => res.json());
 const VoucherListComponent = () => {
   const nav = useNavigate();
   // const [search,setSearch]=useState("");
+  const [token] = useCookie("my_token");
+  const fetcher = (url) =>
+    fetch(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((res) => res.json());
   const [fetchUrl, setFetchUrl] = useState(
     `${import.meta.env.VITE_API_URL}/vouchers`
   );
   const handleNavBtn = () => {
-    nav("/sale");
+    nav("/dashboard/sale");
   };
   const { data, error, isLoading } = useSWR(fetchUrl, fetcher);
   const RefetchUrl = (url) => {

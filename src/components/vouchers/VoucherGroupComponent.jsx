@@ -3,18 +3,20 @@ import useSWR from "swr";
 import EmptyListComponent from "../utilities/EmptyListComponent";
 import VoucherRowComponent from "./VoucherRowComponent";
 import SkeletonLoaderVoucherComponent from "../utilities/SkeletonLoaderVoucherComponent";
-
-const fetcher = (url) => fetch(url).then((res) => res.json());
-const VoucherGroupComponent = ({fetchUrl}) => {
-
-  const { data, isLoading, error } = useSWR(
-    fetchUrl,
-    fetcher
-  );
+import useCookie from "react-use-cookie";
+const VoucherGroupComponent = ({ fetchUrl }) => {
+  const [token] = useCookie("my_token");
+  const fetcher = (url) =>
+    fetch(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((res) => res.json());
+  const { data, isLoading, error } = useSWR(fetchUrl, fetcher);
   return (
     <>
       {isLoading ? (
-        <SkeletonLoaderVoucherComponent/>
+        <SkeletonLoaderVoucherComponent />
       ) : (
         <>
           {data?.data?.length === 0 && <EmptyListComponent />}
