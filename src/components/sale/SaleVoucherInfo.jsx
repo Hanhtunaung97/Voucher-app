@@ -49,7 +49,7 @@ const SaleVoucherInfo = () => {
       console.log(currentVoucher);
       console.log(json);
       if (json.redirect_to_Detail) {
-        nav(`/dashboard/vouchers/${json.id}`);
+        nav(`/dashboard/vouchers/${json.data.id}`);
       }
     } else {
       toast.error(json.message);

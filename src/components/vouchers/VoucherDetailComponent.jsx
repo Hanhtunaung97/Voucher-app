@@ -5,10 +5,17 @@ import printJS from "print-js";
 import html2pdf from "html2pdf.js";
 import { HiOutlinePrinter } from "react-icons/hi2";
 import { FaFilePdf } from "react-icons/fa";
-const fetcher = (url) => fetch(url).then((res) => res.json());
+import useCookie from "react-use-cookie";
 const VoucherDetailComponent = () => {
   const { id } = useParams();
   const pdfRef = useRef();
+  const [token] = useCookie("my_token");
+  const fetcher = (url) =>
+    fetch(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((res) => res.json());
   const { data, error, isLoading } = useSWR(
     import.meta.env.VITE_API_URL + `/vouchers/${id}`,
     fetcher
@@ -127,7 +134,7 @@ const VoucherDetailComponent = () => {
                           Net Total
                         </td>
                         <td className="py-2 text-right text-sm">
-                          {parseFloat(data.data.netTotal).toFixed(2)}
+                          {parseFloat(data.data.net_total).toFixed(2)}
                         </td>
                       </tr>
                     </tfoot>

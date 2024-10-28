@@ -16,10 +16,19 @@ const SkeletonLoaderVoucherComponent = () => {
             scope="row"
             className="px-6 py-4 font-medium text-slate-900 whitespace-nowrap dark:text-white"
           >
-            <div className="w-48 h-4 bg-slate-300 dark:bg-slate-700 rounded"></div>
+            <div className="w-28 h-4 bg-slate-300 dark:bg-slate-700 rounded"></div>
           </th>
-          <td className="px-6 py-4  flex justify-end">
-            <div className="w-16 h-4 bg-slate-300 dark:bg-slate-700 rounded "></div>
+          <th
+            scope="row"
+            className="px-6 py-4 font-medium text-slate-900 whitespace-nowrap dark:text-white"
+          >
+            <div className="flex flex-col space-y-1 text-xs items-start">
+              <div className="w-24 h-4 bg-slate-300 dark:bg-slate-700 rounded"></div>
+              <div className="w-40 h-4 bg-slate-300 dark:bg-slate-700 rounded text-end"></div>
+            </div>
+          </th>
+          <td className="px-6 py-4 flex justify-end">
+            <div className="w-16 h-4 bg-slate-300 dark:bg-slate-700 rounded  text-end"></div>
           </td>
           <td className="px-6 py-4 text-end">
             <div className="flex flex-col space-y-1 text-xs items-end">
@@ -29,7 +38,10 @@ const SkeletonLoaderVoucherComponent = () => {
           </td>
           <td className="px-6 py-4">
             <div className="flex space-x-2 justify-end">
-              <div className="inline-flex gap-1 rounded-md shadow-sm" role="group">
+              <div
+                className="inline-flex gap-1 rounded-md shadow-sm"
+                role="group"
+              >
                 <div className="w-8 h-8 bg-slate-300 dark:bg-slate-700 rounded-full"></div>
                 <div className="w-8 h-8 bg-slate-300 dark:bg-slate-700 rounded-full"></div>
               </div>

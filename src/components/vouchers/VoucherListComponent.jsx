@@ -1,14 +1,20 @@
 import React, { useState } from "react";
 import { FaSearch, FaFileInvoiceDollar } from "react-icons/fa";
 import VoucherTableComponent from "./VoucherTableComponent";
-import { Link, useNavigate } from "react-router-dom";
+import {
+  Link,
+  useLocation,
+  useNavigate,
+  useSearchParams,
+} from "react-router-dom";
 import { debounce } from "lodash";
 import useSWR from "swr";
 import PaginationComponent from "../utilities/PaginationComponent";
 import useCookie from "react-use-cookie";
-const fetcher = (url) => fetch(url).then((res) => res.json());
 const VoucherListComponent = () => {
   const nav = useNavigate();
+  const location = useLocation();
+  const [params, setParams] = useSearchParams();
   // const [search,setSearch]=useState("");
   const [token] = useCookie("my_token");
   const fetcher = (url) =>
@@ -18,19 +24,37 @@ const VoucherListComponent = () => {
       },
     }).then((res) => res.json());
   const [fetchUrl, setFetchUrl] = useState(
-    `${import.meta.env.VITE_API_URL}/vouchers`
+    `${import.meta.env.VITE_API_URL}/vouchers${location.search}`
   );
   const handleNavBtn = () => {
     nav("/dashboard/sale");
   };
   const { data, error, isLoading } = useSWR(fetchUrl, fetcher);
+  console.log(data);
   const RefetchUrl = (url) => {
+    console.log(url);
+    const currentUrl = new URL(url);
+    console.log(currentUrl);
+    const newSearchParams = new URLSearchParams(currentUrl.search);
+    console.log(newSearchParams);
+    console.log(params);
+    const searchParamsObj = Object.fromEntries(newSearchParams.entries());
+    console.log(searchParamsObj);
+    setParams(searchParamsObj);
     setFetchUrl(url);
   };
   const handleSearchInput = debounce((e) => {
     // console.log(e.target.value);
     // setSearch(e.target.value);
-    setFetchUrl(`${import.meta.env.VITE_API_URL}/vouchers?q=${e.target.value}`);
+    if (e.target.value) {
+      setParams({ q: e.target.value });
+      setFetchUrl(
+        `${import.meta.env.VITE_API_URL}/vouchers?q=${e.target.value}`
+      );
+    } else {
+      setParams({});
+      setFetchUrl(`${import.meta.env.VITE_API_URL}/vouchers`);
+    }
   }, 1000);
   return (
     <div>
@@ -57,7 +81,7 @@ const VoucherListComponent = () => {
         </button>
       </div>
       {/* Voucher Table */}
-      <VoucherTableComponent fetchUrl={fetchUrl} />
+      <VoucherTableComponent fetchUrl={fetchUrl} setFetchUrl={setFetchUrl} />
 
       {/* Pagination */}
       {!isLoading && (

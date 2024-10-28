@@ -10,7 +10,15 @@ import useCookie from "react-use-cookie";
 quantum.register();
 
 const VoucherRowComponent = ({
-  voucher: { id, voucher_id, customer_name, customer_email, sale_date },
+  voucher: {
+    id,
+    voucher_id,
+    customer_name,
+    customer_email,
+    created_at,
+    net_total,
+    sale_date,
+  },
 }) => {
   const nav = useNavigate();
   const [token] = useCookie("my_token");
@@ -61,17 +69,21 @@ const VoucherRowComponent = ({
         onClick={handleNavBtn}
         className=" hover:bg-blue-50 duration-200 cursor-pointer border-b border-b-blue-100 bg-white odd:dark:bg-slate-900  even:dark:bg-slate-800  dark:border-slate-700"
       >
-        <td className="px-6 py-4">{voucher_id}</td>
+        <td className="px-6 py-4">{id}</td>
+        <td className="px-6 py-4 text-nowrap">{voucher_id}</td>
         <th
           scope="row"
           className="px-6 py-4 font-medium text-slate-900 whitespace-nowrap dark:text-white"
         >
-          {customer_name}
+          <div className="flex flex-col space-y-0">
+            <span className="text-base"> {customer_name}</span>
+            <span className=" text-sm text-slate-500">{customer_email}</span>
+          </div>
         </th>
-        <td className="px-6 py-4 text-end">{customer_email}</td>
-        <td className="px-6 py-4 text-end">
+        <td className="px-6 py-4 text-end">{net_total}</td>
+        <td className="px-6 py-4 text-end text-nowrap">
           <div className="flex flex-col space-y-0 text-xs">
-            <ShowDateComponent timeStamp={sale_date} />
+            <ShowDateComponent timeStamp={created_at} />
           </div>
         </td>
         <td className="px-6 py-4">

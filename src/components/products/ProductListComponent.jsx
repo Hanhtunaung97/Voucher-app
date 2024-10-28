@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { FaPlus } from "react-icons/fa6";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useSearchParams } from "react-router-dom";
 import { debounce } from "lodash";
 import ProductTableComponent from "./ProductTableComponent";
 import PaginationComponent from "../utilities/PaginationComponent";
@@ -10,8 +10,10 @@ import useCookie from "react-use-cookie";
 const ProductListComponent = () => {
   // const [search,setSearch]=useState("");
   const [token] = useCookie("my_token");
+  const [params, setParams] = useSearchParams();
+  const location = useLocation();
   const [fetchUrl, setFetchUrl] = useState(
-    `${import.meta.env.VITE_API_URL}/products`
+    `${import.meta.env.VITE_API_URL}/products${location.search}`
   );
   const fetcher = (url) =>
     fetch(url, {
@@ -21,11 +23,27 @@ const ProductListComponent = () => {
     }).then((res) => res.json());
   const { data, error, isLoading } = useSWR(fetchUrl, fetcher);
   const RefetchUrl = (url) => {
+    console.log(url);
+    const currentUrl = new URL(url);
+    console.log(currentUrl);
+    const newSearchParams = new URLSearchParams(currentUrl.search);
+    console.log(newSearchParams);
+    const searchParamsObj = Object.fromEntries(newSearchParams.entries());
+    console.log(searchParamsObj);
+    setParams(searchParamsObj);
     setFetchUrl(url);
   };
   const handleSearchInput = debounce((e) => {
     // setSearch(e.target.value);
-    setFetchUrl(`${import.meta.env.VITE_API_URL}/products?q=${e.target.value}`);
+    if (e.target.value) {
+      setParams({ q: e.target.value });
+      setFetchUrl(
+        `${import.meta.env.VITE_API_URL}/products?q=${e.target.value}`
+      );
+    } else {
+      setParams({});
+      setFetchUrl(`${import.meta.env.VITE_API_URL}/products`);
+    }
   }, 1000);
   return (
     <div className="w-full pb-5">
@@ -51,7 +69,7 @@ const ProductListComponent = () => {
         </Link>
       </div>
       {/* Product Table */}
-      <ProductTableComponent fetchUrl={fetchUrl} />
+      <ProductTableComponent fetchUrl={fetchUrl} setFetchUrl={RefetchUrl} />
       {!isLoading && (
         <PaginationComponent
           links={data?.links}
