@@ -19,7 +19,7 @@
 
 ## <a name="introduction">🤖 Introduction</a>
 
-This is a Voucher Management App with Laraval API using React.js and TailwindCSS.I used SWR for data fetching and Zustand for to control Global State. Before you start run the project in your computer you need to know Backend Laraval API to migrate the code but if you have your own voucer api , you can freely use this UI to migrate your API.
+This is a Voucher Management App with Laraval API using React.js and TailwindCSS.I used SWR for data fetching and Zustand for to control Global State.First of all, you need to create user account to access my web app by registering or logging. Before you start run the project in your computer you need to know Backend Laraval API to migrate the code but if you have your own voucer api , you can freely use this UI to migrate your API.
 
 ## <a name="tech-stack">⚙️ Tech Stack</a>
 
@@ -41,6 +41,8 @@ This is a Voucher Management App with Laraval API using React.js and TailwindCSS
 - Ui ball
 
 ## <a name="features">🔋 Features</a>
+
+👉 **Authentication & Authorization**: You have to create user account to access operation of my app by registering with your email and then with the authorization process , you can use and access my application performance. 
 
 👉 **Voucher Detail system**: that let you print your list of products into invoice with print-js and otherwise you can download your invoice with PDF Format.
 
