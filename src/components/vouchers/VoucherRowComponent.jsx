@@ -7,6 +7,7 @@ import { useSWRConfig } from "swr";
 import { quantum } from "ldrs";
 import { Link, useNavigate } from "react-router-dom";
 import useCookie from "react-use-cookie";
+import { useSearchParams } from "react-router-dom";
 quantum.register();
 
 const VoucherRowComponent = ({
@@ -21,6 +22,7 @@ const VoucherRowComponent = ({
   },
 }) => {
   const nav = useNavigate();
+  const [params, setParams] = useSearchParams();
   const [token] = useCookie("my_token");
   const [isDelete, setIsDelete] = useState(false);
   const [swalProps, setSwalProps] = useState({});
@@ -47,7 +49,7 @@ const VoucherRowComponent = ({
           show: false,
         });
         setIsDelete(true);
-        await fetch(import.meta.env.VITE_API_URL + `/vouchers/${id}`, {
+        await fetch(`${import.meta.env.VITE_API_URL}/vouchers/${id}`, {
           method: "DELETE",
           headers: {
             Authorization: `Bearer ${token}`,
@@ -55,7 +57,12 @@ const VoucherRowComponent = ({
           },
         });
         setIsDelete(false);
-        mutate(import.meta.env.VITE_API_URL + "/vouchers");
+        const searchParams = params.toString();
+        if (searchParams === "") {
+          mutate(`${import.meta.env.VITE_API_URL}/vouchers`);
+        } else {
+          mutate(`${import.meta.env.VITE_API_URL}/vouchers?${searchParams}`);
+        }
         toast.success(`${customer_name}'s voucher deleted successfully!`);
       },
     });

@@ -48,7 +48,7 @@ const SaleVoucherInfo = () => {
       toast.success(`${data.customer_name}'s voucher is created successfully`);
       console.log(currentVoucher);
       console.log(json);
-      if (json.redirect_to_Detail) {
+      if (data.redirect_to_Detail) {
         nav(`/dashboard/vouchers/${json.data.id}`);
       }
     } else {
@@ -90,18 +90,16 @@ const SaleVoucherInfo = () => {
                 defaultValue={generateInvoiceId()}
                 disabled={isSending}
                 type="text"
+                readOnly
                 id="voucherId"
-                className={`${
-                  errors.voucher_id
-                    ? "focus:border-red-500 focus:ring-red-500 border-red-500 "
-                    : "focus:ring-green-300 focus:border-green-300 border-slate-300  "
-                } disabled:opacity-75 bg-slate-50 border  text-slate-900 text-sm rounded-lg  block w-full p-2.5 dark:bg-slate-700 dark:border-slate-600 dark:placeholder-slate-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}
+                className={` focus:outline-none focus:ring-0 focus:border-slate-300
+                     border-slate-300  disabled:opacity-75 bg-slate-50 border pointer-events-none select-none  text-slate-900 text-sm rounded-lg  block w-full p-2.5 dark:bg-slate-700 dark:border-slate-600 dark:placeholder-slate-400 dark:text-white `}
               />
-              {errors.voucher_id?.type === "required" && (
+              {/* {errors.voucher_id?.type === "required" && (
                 <p className="text-red-500 mt-2 text-sm">
                   Voucher ID is required !
                 </p>
-              )}
+              )} */}
             </div>
             <div className=" col-span-full">
               <label
@@ -278,7 +276,7 @@ const SaleVoucherInfo = () => {
                 {isSending ? (
                   <>
                     <div className="flex items-center justify-center gap-x-3">
-                      <span>Creating Voucher</span>
+                      <span>Creating</span>
                       <l-dot-spinner
                         size="16"
                         speed="0.9"

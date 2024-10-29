@@ -3,22 +3,31 @@ import { useForm } from "react-hook-form";
 import { dotSpinner } from "ldrs";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import toast from "react-hot-toast";
-import useSWR from "swr";
+import useSWR, { useSWRConfig } from "swr";
 import SkeletonFormComponent from "./SkeletonFormComponent";
 import useCookie from "react-use-cookie";
+import { useSearchParams } from "react-router-dom";
 const UpdateProductComponent = () => {
+  const [params, setParams] = useSearchParams();
   const { id } = useParams();
   const [token] = useCookie("my_token");
+  const { mutate } = useSWRConfig();
+  const [fetchUrl, setFetchUrl] = useState(
+    import.meta.env.VITE_API_URL + `/products/${id}`
+  );
+  const searchParams = params.toString();
+  if (searchParams !== "") {
+    setFetchUrl(
+      `${import.meta.env.VITE_API_URL}/products/${id}?${searchParams}`
+    );
+  }
   const fetcher = (url) =>
     fetch(url, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     }).then((res) => res.json());
-  const { data, error, isLoading } = useSWR(
-    import.meta.env.VITE_API_URL + `/products/${id}`,
-    fetcher
-  );
+  const { data, error, isLoading } = useSWR(fetchUrl, fetcher);
   const nav = useNavigate();
   const {
     register,
@@ -37,7 +46,7 @@ const UpdateProductComponent = () => {
       created_at: data.created_at,
     };
     setIsSending(true);
-    const res = await fetch(import.meta.env.VITE_API_URL + `/products/${id}`, {
+    const res = await fetch(fetchUrl, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -54,6 +63,7 @@ const UpdateProductComponent = () => {
       if (data.correct_check) {
         nav("/dashboard/products");
       }
+      mutate(fetchUrl);
       toast.success(`${data.product_name} product updated successfully`);
       reset();
     } else {
@@ -211,7 +221,8 @@ const UpdateProductComponent = () => {
                   )}
                 </button>
                 <Link
-                  to={"/dashboard/products"}
+                  disabled={isSending}
+                  to={`/dashboard/products`}
                   type="button"
                   className="text-blue-700 border border-blue-200 bg-white hover:bg-blue-100   focus:ring focus:outline-none focus:ring-blue-100 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 duration-200"
                 >

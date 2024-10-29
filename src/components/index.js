@@ -31,3 +31,5 @@ export { default as UserProfileComponent } from "./profile/UserProfileComponent"
 export { default as UserProfileChangeNameComponent } from "./profile/UserProfileChangeNameComponent";
 export { default as UserProfileChangeImageComponent } from "./profile/UserProfileChangeImageComponent";
 export { default as UserProfileChangePasswordComponent } from "./profile/UserProfileChangePasswordComponent";
+export { default as ProductSortingComponent } from "./utilities/ProductSortingComponent";
+export { default as VoucherSortingComponent } from "./utilities/VoucherSortingComponent";

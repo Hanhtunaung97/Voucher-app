@@ -8,10 +8,12 @@ import SweetAlert2 from "react-sweetalert2";
 import { Link } from "react-router-dom";
 import ShowDateComponent from "../utilities/ShowDateComponent";
 import useCookie from "react-use-cookie";
+import { useSearchParams } from "react-router-dom";
 newtonsCradle.register();
 const ProductRowComponent = ({
   product: { id, product_name, price, created_at, updated_at },
 }) => {
+  const [params, setParams] = useSearchParams();
   const [isDelete, setIsDelete] = useState(false);
   const [swalProps, setSwalProps] = useState({});
   const [token] = useCookie("my_token");
@@ -49,7 +51,12 @@ const ProductRowComponent = ({
         );
         const json = res.json();
         if (res.status == 200) {
-          mutate(import.meta.env.VITE_API_URL + "/products");
+          const searchParams = params.toString();
+          if (searchParams === "") {
+            mutate(import.meta.env.VITE_API_URL + "/products");
+          } else {
+            mutate(`${import.meta.env.VITE_API_URL}/products?${searchParams}`);
+          }
           toast.success(`${product_name} product deleted successfully`);
           setIsDelete(false);
         } else {
