@@ -70,6 +70,10 @@ const VoucherRowComponent = ({
   const handleNavBtn = () => {
     nav(`/dashboard/vouchers/${id}`);
   };
+  const handleLinkBtn = (e) => {
+    e.stopPropagation();
+    nav(`/dashboard/vouchers/${id}`);
+  };
   return (
     <>
       <tr
@@ -109,12 +113,12 @@ const VoucherRowComponent = ({
                   <CiTrash className="w-4 h-4 duration-100 group-hover:w-5 group-hover:h-5" />
                 )}
               </button>
-              <Link
-                to={`/vouchers/${id}`}
+              <button
+                onClick={handleLinkBtn}
                 className="group duration-200 size-8 flex justify-center items-center text-sm font-medium text-blue-500 bg-white border border-blue-400 rounded-full hover:bg-blue-100 hover:text-blue-700 focus:z-10 focus:border-0 focus:ring-2 focus:ring-blue-200 focus:text-blue-700 dark:bg-slate-800 dark:border-slate-700 dark:text-white dark:hover:text-white dark:hover:bg-slate-700 dark:focus:ring-blue-500 dark:focus:text-white"
               >
                 <CiLink className="w-4 h-4 group-hover:w-5 group-hover:h-5" />
-              </Link>
+              </button>
             </div>
           </div>
         </td>

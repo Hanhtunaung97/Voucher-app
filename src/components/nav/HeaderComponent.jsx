@@ -17,7 +17,7 @@ const HeaderComponent = () => {
         <div className="flex justify-between items-center py-5">
           <div className="flex flex-col gap-1 ">
             <Link
-              to={"/"}
+              to={"/dashboard"}
               className="font-heading font-bold text-lg md:text-2xl text-slate-800"
             >
               Voucher Management
@@ -34,7 +34,7 @@ const HeaderComponent = () => {
             />
             <div className="flex flex-col items-start">
               <Link
-                to={"/"}
+                to={"/dashboard/user-profile"}
                 className="font-heading font-bold text-base md:text-lg text-slate-800"
               >
                 {name}

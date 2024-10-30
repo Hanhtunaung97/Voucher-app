@@ -1,17 +1,24 @@
 import React from "react";
 import { useSearchParams } from "react-router-dom";
 import { HiChevronDown, HiChevronUp } from "react-icons/hi2";
-const ProductSortingComponent = ({ setFetchUrl, sort_by }) => {
+const SortingComponent = ({ setFetchUrl, sort_by, tableName }) => {
   const [params, setParams] = useSearchParams();
   const handleSortParams = (sortType) => {
     console.log(sortType);
     const sortParams = new URLSearchParams(sortType).toString();
     console.log(sortParams);
     setParams(sortType);
-    if (sortParams === "") {
-      setFetchUrl(`${import.meta.env.VITE_API_URL}/products`);
+    if (tableName === "vouchers") {
+      if (sortParams === "") {
+        setFetchUrl(`${import.meta.env.VITE_API_URL}/vouchers`);
+      }
+      setFetchUrl(`${import.meta.env.VITE_API_URL}/vouchers?${sortParams}`);
+    } else if (tableName === "products") {
+      if (sortParams === "") {
+        setFetchUrl(`${import.meta.env.VITE_API_URL}/products`);
+      }
+      setFetchUrl(`${import.meta.env.VITE_API_URL}/products?${sortParams}`);
     }
-    setFetchUrl(`${import.meta.env.VITE_API_URL}/products?${sortParams}`);
   };
   return (
     <span className="flex items-center flex-col">
@@ -37,4 +44,4 @@ const ProductSortingComponent = ({ setFetchUrl, sort_by }) => {
   );
 };
 
-export default ProductSortingComponent;
+export default SortingComponent;

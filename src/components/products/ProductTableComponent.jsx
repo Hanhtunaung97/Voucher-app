@@ -1,6 +1,6 @@
 import React from "react";
 import ProductGroupComponent from "./ProductGroupComponent";
-import ProductSortingComponent from "../utilities/ProductSortingComponent";
+import SortingComponent from "../utilities/SortingComponent";
 const ProductTableComponent = ({ fetchUrl, setFetchUrl }) => {
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -9,9 +9,10 @@ const ProductTableComponent = ({ fetchUrl, setFetchUrl }) => {
           <tr>
             <th scope="col" className="px-6 py-3">
               <div className="flex items-center gap-1">
-                <ProductSortingComponent
+                <SortingComponent
                   setFetchUrl={setFetchUrl}
                   sort_by={"id"}
+                  tableName={"products"}
                 />
                 <span>#</span>
               </div>
@@ -21,9 +22,10 @@ const ProductTableComponent = ({ fetchUrl, setFetchUrl }) => {
             </th>
             <th scope="col" className="px-6 py-3 text-end">
               <div className="flex items-center justify-end gap-1">
-                <ProductSortingComponent
+                <SortingComponent
                   setFetchUrl={setFetchUrl}
                   sort_by={"price"}
+                  tableName={"products"}
                 />
                 <span> PRICE(MYR)</span>
               </div>

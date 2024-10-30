@@ -1,6 +1,6 @@
 import React from "react";
 import VoucherGroupComponent from "./VoucherGroupComponent";
-import VoucherSortingComponent from "../utilities/VoucherSortingComponent";
+import SortingComponent from "../utilities/SortingComponent";
 const VoucherTableComponent = ({ fetchUrl, setFetchUrl }) => {
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -9,9 +9,10 @@ const VoucherTableComponent = ({ fetchUrl, setFetchUrl }) => {
           <tr>
             <th scope="col" className="px-6 py-3 ">
               <div className="flex items-center gap-1">
-                <VoucherSortingComponent
+                <SortingComponent
                   setFetchUrl={setFetchUrl}
                   sort_by={"id"}
+                  tableName={"vouchers"}
                 />
                 <span>#</span>
               </div>
@@ -25,9 +26,10 @@ const VoucherTableComponent = ({ fetchUrl, setFetchUrl }) => {
 
             <th scope="col" className="px-6 py-3 text-end">
               <div className="flex items-center justify-end gap-1">
-                <VoucherSortingComponent
+                <SortingComponent
                   setFetchUrl={setFetchUrl}
                   sort_by={"net_total"}
+                  tableName={"vouchers"}
                 />
                 <span>Net Total</span>
               </div>
