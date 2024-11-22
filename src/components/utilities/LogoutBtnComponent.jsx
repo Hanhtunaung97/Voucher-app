@@ -6,6 +6,7 @@ const LogoutBtnComponent = () => {
   const nav = useNavigate();
   const handleLogoutBtn = () => {
     removeCookie("my_token");
+    removeCookie("user_cookie");
     nav("/");
     toast.success("Logout successfully!");
   };

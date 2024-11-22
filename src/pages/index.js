@@ -1,15 +1,1 @@
-export { default as HomePage } from "./HomePage";
-export { default as VoucherPage } from "./VoucherPage";
-export { default as ProductsPage } from "./ProductsPage";
-export { default as SalePage } from "./SalePage";
-export { default as VoucherDetailPage } from "./VoucherDetailPage";
 export { default as NotFoundPage } from "./NotFoundPage";
-export { default as ProductCreatePage } from "./ProductCreatePage";
-export { default as ProductEditPage } from "./ProductEditPage";
-export { default as LoginPage } from "./LoginPage";
-export { default as RegisterPage } from "./RegisterPage";
-export { default as DashboardPage } from "./DashboardPage";
-export { default as UserProfilePage } from "./UserProfilePage";
-export { default as UserProfileChangeNamePage } from "./UserProfileChangeNamePage";
-export { default as UserProfileChangeImagePage } from "./UserProfileChangeImagePage";
-export { default as UserProfileChangePasswordPage } from "./UserProfileChangePasswordPage";
