@@ -1,41 +1,19 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Link, useLocation, useSearchParams } from "react-router-dom";
-import { debounce } from "lodash";
+import React from "react";
+import { Link } from "react-router-dom";
 import ProductTableComponent from "./ProductTableComponent";
 import PaginationComponent from "../../../components/utilities/PaginationComponent";
-import useSWR from "swr";
 import { LuPlusCircle, LuSearch } from "react-icons/lu";
-import { fetchProducts } from "../../../services/product";
-import urlToParamsObject from "../../../utils/urlGenerate";
+import useProductList from "../hooks/useProductList";
 const ProductListComponent = () => {
-  const searchRef = useRef();
-  const [params, setParams] = useSearchParams();
-  const location = useLocation();
-  const [fetchUrl, setFetchUrl] = useState(
-    `${import.meta.env.VITE_API_URL}/products${location.search}`
-  );
-  const { data, error, isLoading } = useSWR(fetchUrl, fetchProducts);
-  useEffect(() => {
-    if (params.get("q")) {
-      searchRef.current.value = params.get("q");
-    }
-  }, []);
-  const RefetchUrl = (url) => {
-    console.log(url);
-    setParams(urlToParamsObject(url));
-    setFetchUrl(url);
-  };
-  const handleSearchInput = debounce((e) => {
-    if (e.target.value) {
-      setParams({ q: e.target.value });
-      setFetchUrl(
-        `${import.meta.env.VITE_API_URL}/products?q=${e.target.value}`
-      );
-    } else {
-      setParams({});
-      setFetchUrl(`${import.meta.env.VITE_API_URL}/products`);
-    }
-  }, 500);
+  const {
+    data,
+    error,
+    isLoading,
+    searchRef,
+    handleSearchInput,
+    fetchUrl,
+    RefetchUrl,
+  } = useProductList();
   return (
     <div className="w-full pb-5">
       {/* Search and Add */}
@@ -62,6 +40,7 @@ const ProductListComponent = () => {
       </div>
       {/* Product Table */}
       <ProductTableComponent fetchUrl={fetchUrl} setFetchUrl={RefetchUrl} />
+      {/* pagination */}
       {
         <PaginationComponent
           links={data?.links}

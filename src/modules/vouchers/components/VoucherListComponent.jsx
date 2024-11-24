@@ -1,43 +1,19 @@
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
 import { LuPlusCircle, LuSearch } from "react-icons/lu";
-import { Link, useLocation, useSearchParams } from "react-router-dom";
-import { debounce } from "lodash";
-import useSWR from "swr";
+import { Link } from "react-router-dom";
 import PaginationComponent from "../../../components/utilities/PaginationComponent";
-import { fetchVouchers } from "../../../services/voucher";
-import urlToParamsObject from "../../../utils/urlGenerate";
 import VoucherTableComponent from "./VoucherTableComponent";
+import useVoucherList from "../hooks/useVoucherList";
 const VoucherListComponent = () => {
-  const location = useLocation();
-  const searchRef = useRef();
-  const [params, setParams] = useSearchParams();
-  useEffect(() => {
-    if (params.get("q")) {
-      searchRef.current.value = params.get("q");
-    }
-  }, []);
-  const [fetchUrl, setFetchUrl] = useState(
-    `${import.meta.env.VITE_API_URL}/vouchers${location.search}`
-  );
-  const { data, error, isLoading } = useSWR(fetchUrl, fetchVouchers);
-  console.log(data);
-
-  const RefetchUrl = (url) => {
-    console.log(url);
-    setParams(urlToParamsObject(url));
-    setFetchUrl(url);
-  };
-  const handleSearchInput = debounce((e) => {
-    if (e.target.value) {
-      setParams({ q: e.target.value });
-      setFetchUrl(
-        `${import.meta.env.VITE_API_URL}/vouchers?q=${e.target.value}`
-      );
-    } else {
-      setParams({});
-      setFetchUrl(`${import.meta.env.VITE_API_URL}/vouchers`);
-    }
-  }, 1000);
+  const {
+    data,
+    error,
+    isLoading,
+    searchRef,
+    handleSearchInput,
+    fetchUrl,
+    RefetchUrl,
+  } = useVoucherList();
   return (
     <div>
       {/* Search and Add */}
@@ -63,7 +39,7 @@ const VoucherListComponent = () => {
         </Link>
       </div>
       {/* Voucher Table */}
-      <VoucherTableComponent fetchUrl={fetchUrl} setFetchUrl={setFetchUrl} />
+      <VoucherTableComponent fetchUrl={fetchUrl} setFetchUrl={RefetchUrl} />
 
       {/* Pagination */}
       {

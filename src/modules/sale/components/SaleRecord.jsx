@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import toast from "react-hot-toast";
+import React from "react";
 import SweetAlert2 from "react-sweetalert2";
 import { LuMinus, LuPlus, LuTrash2 } from "react-icons/lu";
-import useSaleRecordStore from "../../../store/useSaleRecordStore";
 import { orbit } from "ldrs";
+import useSaleRecord from "../hooks/useSaleRecord";
 orbit.register();
+
 const SaleRecord = ({
   index,
   record: {
@@ -15,42 +15,16 @@ const SaleRecord = ({
     product: { product_name, price },
   },
 }) => {
-  const [isDelete, setIsDelete] = useState(false);
-  const [swalProps, setSwalProps] = useState({});
-  const { removeSaleRecord, changeQuantity } = useSaleRecordStore();
-  const handleDeleteBtn = () => {
-    setSwalProps({
-      show: true,
-      title: "Are you sure?",
-      text: "You will not be able to recover this product!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3f83f8",
-      cancelButtonColor: "#f05252",
-      confirmButtonText: "Yes, delete it!",
-      cancelButtonText: "No, cancel!",
-      onResolve: () => {
-        setSwalProps({
-          show: false,
-        });
-      },
-      onConfirm: async () => {
-        setSwalProps({
-          show: false,
-        });
-        setIsDelete(true);
-        removeSaleRecord(product_id);
-        setIsDelete(false);
-        toast.success(`${product_name} product deleted successfully`);
-      },
-    });
-  };
-  const handleDecreaseBtn = () => {
-    quantity > 1 && changeQuantity(product_id, -1);
-  };
-  const handleIncreaseBtn = () => {
-    changeQuantity(product_id, 1);
-  };
+  const {
+    isDelete,
+    swalProps,
+    handleDeleteBtn,
+    handleDecreaseBtn,
+    handleIncreaseBtn,
+  } = useSaleRecord(product_id, quantity, cost, created_at, {
+    product_name,
+    price,
+  });
   return (
     <tr className="group odd:bg-white odd:dark:bg-gray-900 even:bg-blue-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
       <td className="px-6 py-4 td-counter">{index + 1}</td>

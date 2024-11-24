@@ -1,7 +1,15 @@
 import React from "react";
+import { ContainerComponent } from "../../../components";
+import ContactUsComponent from "../components/ContactUsComponent";
 
 const ContactUsPage = () => {
-  return <div>ContactUsPage</div>;
+  return (
+    <section>
+      <ContainerComponent>
+        <ContactUsComponent />
+      </ContainerComponent>
+    </section>
+  );
 };
 
 export default ContactUsPage;

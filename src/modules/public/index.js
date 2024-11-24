@@ -6,3 +6,6 @@ export { default as HeaderComponent } from "./components/nav/HeaderComponent";
 export { default as FooterComponent } from "./components//nav/FooterComponent";
 export { default as HeroSectionComponent } from "./components/HeroSectionComponent";
 export { default as FeatureComponent } from "./components/FeatureComponent";
+export { default as ContactUsComponent } from "./components/ContactUsComponent";
+export { default as AboutUsHeroSectionComponent } from "./components/AboutUsHeroSectionComponent";
+export { default as AboutUsTestimonialComponent } from "./components/AboutUsTestimonialComponent";

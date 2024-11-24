@@ -1,53 +1,20 @@
-import React, { useState } from "react";
-import { useForm } from "react-hook-form";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import toast from "react-hot-toast";
-import useSWR, { useSWRConfig } from "swr";
-import { editProduct, fetchProducts } from "../../../services/product";
+import React from "react";
+import { Link, useParams } from "react-router-dom";
 import ProductFormSkeletonComponent from "./ProductFormSkeletonComponent";
 import { BtnSpinnerComponent } from "../../../components";
+import useProductUpdate from "../hooks/useProductUpdate";
 
 const ProductUpdateComponent = () => {
-  const nav = useNavigate();
   const { id } = useParams();
-  const { mutate } = useSWRConfig();
-  const [fetchUrl, setFetchUrl] = useState(
-    import.meta.env.VITE_API_URL + `/products/${id}`
-  );
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-    reset,
-  } = useForm();
-  const { data, error, isLoading } = useSWR(fetchUrl, fetchProducts);
+    data,
+    error,
+    isLoading,
+  } = useProductUpdate(id);
 
-  const handleUpdateForm = async (data) => {
-    console.log(data);
-    try {
-      const updatedProduct = {
-        product_name: data.product_name,
-        price: data.price,
-      };
-
-      const res = await editProduct(id, updatedProduct);
-      const json = await res.json();
-
-      if (res.status === 200) {
-        if (data.correct_check) {
-          nav("/dashboard/products");
-        }
-        mutate(fetchUrl);
-        toast.success(`${data.product_name} product updated successfully`);
-        reset();
-      } else {
-        toast.error(json.message);
-      }
-    } catch (error) {
-      console.error("Error updating product:", error);
-      toast.error("Something went wrong. Please try again later.");
-    }
-  };
   return (
     <div className="flex justify-center items-center">
       <div className="w-full md:w-1/2 border border-slate-200 rounded-lg p-5 shadow-md flex flex-col gap-y-5">
@@ -65,7 +32,7 @@ const ProductUpdateComponent = () => {
           <ProductFormSkeletonComponent />
         ) : (
           <>
-            <form onSubmit={handleSubmit(handleUpdateForm)}>
+            <form onSubmit={handleSubmit}>
               <div className="mb-5">
                 <label
                   htmlFor="text"

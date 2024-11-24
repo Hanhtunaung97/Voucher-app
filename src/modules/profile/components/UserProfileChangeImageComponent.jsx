@@ -1,50 +1,18 @@
-import React, { useRef, useState } from "react";
+import React from "react";
 import userProfile from "../../../assets/images/userProfile.png";
-import toast from "react-hot-toast";
-import useCookie from "react-use-cookie";
-import useUserStore from "../../../store/useUserStore";
 import BtnSpinnerComponent from "../../../components/utilities/BtnSpinnerComponent";
 import { LuCamera } from "react-icons/lu";
-import { updateImage } from "../../../services/profile";
+import useChangeImage from "../hooks/useProfileChangeImage";
+
 const UserProfileChangeImageComponent = () => {
-  const inputRef = useRef();
-  const [token] = useCookie("my_token");
-  const [userCookie, setUserCookie] = useCookie("user_cookie");
   const {
-    user: { profile_image },
-    setUser,
-  } = useUserStore();
-  const [isSending, setIsSending] = useState(false);
-  const handleChangeProfileBtn = () => {
-    console.log(inputRef.current);
-    inputRef.current.click();
-  };
-  const handleChangeImage = async (event) => {
-    console.log(event.target.files);
-    const data = event.target.files[0];
-    const formData = new FormData();
-    formData.append("profile_image", data);
-    setIsSending(true);
-    try {
-      const res = await updateImage(formData);
-      const json = await res.json();
-      console.log(json);
-      if (res.status === 200) {
-        toast.success(
-          `${json.user.name} profile image is changed successfully`
-        );
-        setUserCookie(JSON.stringify(json.user));
-        setUser(json.user);
-      } else {
-        toast.error(json.message);
-      }
-    } catch (error) {
-      console.error(error);
-      toast.error(error.message);
-    } finally {
-      setIsSending(false);
-    }
-  };
+    handleChangeProfileBtn,
+    handleChangeImage,
+    isSending,
+    profile_image,
+    inputRef,
+  } = useChangeImage();
+
   return (
     <div className="  grid grid-cols-1 md:grid-cols-2  pt-10">
       <div className="col-span-full  flex flex-col gap-5 justify-center items-center w-full h-full  mx-auto p-10 bg-white  rounded-lg shadow drop-shadow">

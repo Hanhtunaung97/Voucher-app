@@ -1,55 +1,20 @@
 import React from "react";
 import generateInvoiceId from "../../../utils/generateInvoiceId";
-import { useNavigate } from "react-router-dom";
-import toast from "react-hot-toast";
-import { useForm } from "react-hook-form";
 import { BtnSpinnerComponent } from "../../../components";
-import useSaleRecordStore from "../../../store/useSaleRecordStore";
 import { LuBadgeDollarSign } from "react-icons/lu";
-import { createSale } from "../../../services/sale";
+import useSaleVoucherForm from "../hooks/useSaleVoucherForm";
 
 const SaleVoucherForm = () => {
-  const nav = useNavigate();
-  const saleDate = new Date().toISOString().slice(0, 10);
   const {
+    saleDate,
     register,
     handleSubmit,
-    formState: { errors, isSubmitting, isLoading },
-    reset,
-  } = useForm();
-  const { records, resetSaleRecord } = useSaleRecordStore();
-  const handleSaleVoucherForm = async (data) => {
-    // to save on vouchers server
-    const total = records.reduce((acc, { cost }) => acc + cost, 0);
-    const tax = total * 0.12;
-    const net_total = total + tax;
-    const currentVoucher = { ...data, records, total, tax, net_total };
-    // console.log(currentVoucher);
-    try {
-      const res = await createSale(currentVoucher);
-      const json = await res.json();
-      if (res.status === 201) {
-        reset();
-        resetSaleRecord();
-        toast.success(
-          `${data.customer_name}'s voucher is created successfully`
-        );
-        if (data.redirect_to_Detail) {
-          nav(`/dashboard/vouchers/detail/${json?.data?.id}`);
-        }
-      } else {
-        toast.error(json.message);
-      }
-    } catch (error) {
-      console.error("Error creating voucher:", error);
-      toast.error(
-        "An error occurred while creating the voucher. Please try again."
-      );
-    }
-  };
-  const handleNavBtn = () => {
-    nav("/dashboard/vouchers");
-  };
+    errors,
+    isSubmitting,
+    isLoading,
+    handleSaleVoucherForm,
+    handleNavBtn,
+  } = useSaleVoucherForm();
   return (
     <form
       className="flex flex-col gap-10 h-full"

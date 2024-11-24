@@ -1,36 +1,15 @@
 import React from "react";
-import { useForm } from "react-hook-form";
-import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
 import BtnSpinnerComponent from "../../../components/utilities/BtnSpinnerComponent";
-import { updatePassword } from "../../../services/profile";
+import useChangePassword from "../hooks/useProfileChangePassword";
 const UserProfileChangePasswordComponent = () => {
-  const nav = useNavigate();
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
-    reset,
-    watch,
-  } = useForm();
-  const newPassword = watch("new_password");
-  const handleChangePassword = async (data) => {
-    // console.log(data);
-    try {
-      const res = await updatePassword(data);
-      const json = await res.json();
-      if (res.status === 200) {
-        toast.success(`${json.message}  and login again please!`);
-        reset();
-        nav("/");
-      } else {
-        toast.error(json.message);
-      }
-    } catch (error) {
-      console.error(error);
-      toast.error("Something went wrong. Please try again later.");
-    }
-  };
+    errors,
+    isSubmitting,
+    newPassword,
+    handleChangePassword,
+  } = useChangePassword();
   return (
     <div className=" grid grid-cols-1 md:grid-cols-2  pt-10">
       <div className="col-span-full flex justify-center items-center  h-full mx-auto p-10 bg-white  rounded-lg shadow drop-shadow">

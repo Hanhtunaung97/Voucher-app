@@ -1,48 +1,11 @@
 import React from "react";
-import { useForm } from "react-hook-form";
-import toast from "react-hot-toast";
-import useCookie from "react-use-cookie";
-import useUserStore from "../../../store/useUserStore";
 import BtnSpinnerComponent from "../../../components/utilities/BtnSpinnerComponent";
-import { updateName } from "../../../services/profile";
-import { useNavigate } from "react-router-dom";
+import useChangeName from "../hooks/useProfileChangeName";
+
 const UserProfileChangeNameComponent = () => {
-  const nav = useNavigate();
-  const [userCookie, setUserCookie] = useCookie("user_cookie");
-  const {
-    user: { name },
-    setUser,
-  } = useUserStore();
-  // console.log(userCookie);
-  // const { name } = JSON.parse(userCookie);
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitting },
-    reset,
-    watch,
-  } = useForm();
-  const handleChangeName = async (data) => {
-    // console.log(data);
-    try {
-      const res = await updateName(data);
-      const json = await res.json();
-      // console.log(json);
-      if (res.status === 200) {
-        toast.success(`${json.user.name} name is changed successfully`);
-        setUserCookie(JSON.stringify(json.user));
-        setUser(json.user);
-        reset();
-        nav("/dashboard");
-      } else {
-        toast.error(json.message);
-        throw new Error(json.message);
-      }
-    } catch (error) {
-      console.error(error);
-      toast.error(error.message);
-    }
-  };
+  const { handleChangeName, handleSubmit, errors, isSubmitting, register } =
+    useChangeName();
+
   return (
     <div className=" grid grid-cols-1 md:grid-cols-2  pt-10 ">
       <div className="col-span-full flex justify-center items-center  h-full mx-auto p-10 bg-white  rounded-lg shadow drop-shadow">
@@ -64,7 +27,6 @@ const UserProfileChangeNameComponent = () => {
                 maxLength: 20,
               })}
               disabled={isSubmitting}
-              // defaultValue={name}
               type="text"
               id="text"
               className={`${
